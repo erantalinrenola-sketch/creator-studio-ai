@@ -1,13 +1,11 @@
-import { Component, signal } from '@angular/core';
-import { MainLayout } from './layouts/main/main-layout/main-layout';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [MainLayout],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
-export class App {
-  protected readonly title = signal('creator-studio-ui');
-}
+export class App {}
