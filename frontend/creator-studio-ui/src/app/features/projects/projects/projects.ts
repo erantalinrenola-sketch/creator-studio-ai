@@ -34,7 +34,7 @@ export class Projects {
   openCreateProjectDialog() {
 
     const dialogRef = this.dialog.open(CreateProjectDialog, {
-      width: '500px'
+      width: '600px'
     });
 
     dialogRef.afterClosed().subscribe(result => {

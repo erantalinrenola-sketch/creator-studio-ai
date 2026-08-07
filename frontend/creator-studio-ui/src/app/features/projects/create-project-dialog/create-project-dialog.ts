@@ -1,14 +1,11 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-create-project-dialog',
   standalone: true,
-  imports: [
-    FormsModule,
-    MatDialogModule
-  ],
+  imports: [FormsModule],
   templateUrl: './create-project-dialog.html',
   styleUrl: './create-project-dialog.scss',
 })

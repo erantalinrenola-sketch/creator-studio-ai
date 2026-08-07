@@ -18,13 +18,16 @@
 <div class="form-group">
   <label>Status</label>
   <select [(ngModel)]="project.status">
-    <option value="Draft">Draft</option>
-    <option value="In Progress">In Progress</option>
-    <option value="Completed">Completed</option>
+    <option>Draft</option>
+    <option>In Progress</option>
+    <option>Completed</option>
   </select>
 </div>
 
 <div class="actions">
   <button (click)="cancel()">Cancel</button>
-  <button (click)="createProject()">Create</button>
+
+  <button (click)="createProject()">
+    Create
+  </button>
 </div>

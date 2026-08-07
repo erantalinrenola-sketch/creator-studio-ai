@@ -1,55 +1,44 @@
 .projects-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .projects-header button {
-    background: #7C3AED;
-    color: white;
-    border: none;
-    padding: 10px 18px;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  
-  .search-box {
-    margin-top: 20px;
-  }
-  
-  .search-box input {
-    width: 300px;
-    padding: 10px;
-    border-radius: 8px;
-    border: none;
-  }
-  
-  .project-grid {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-top: 30px;
-  }
-  
-  .project-card {
-    width: 280px;
-    background: #1E293B;
-    padding: 20px;
-    border-radius: 12px;
-    color: white;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  }
-  
-  .project-card h2 {
-    margin-top: 0;
-  }
-  
-  .status {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 14px;
-    background: #7C3AED;
-    color: white;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.projects-header button {
+  background: #7C3AED;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.projects-grid {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.project-card {
+  width: 280px;
+  background: #1E293B;
+  padding: 20px;
+  border-radius: 12px;
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.project-card h2 {
+  margin-top: 0;
+}
+
+.status {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  background: #7C3AED;
+  color: white;
+}
