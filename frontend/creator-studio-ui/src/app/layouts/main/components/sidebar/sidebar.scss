@@ -1,44 +1,49 @@
+:host {
+  display: block;
+  width: 300px;
+}
+
 .sidebar {
-    width: 260px;
-    min-height: calc(100vh - 64px);
-    background: #111827;
-    color: white;
-    overflow-y: auto;
-  }
-  
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 20px;
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
-  }
-  
-  .logo mat-icon {
-    color: #7C3AED;
-  }
-  
-  mat-nav-list {
-    padding: 10px;
-  }
-  
-  mat-nav-list a {
-    color: white !important;
-    border-radius: 10px;
-    margin-bottom: 6px;
-    transition: all 0.3s ease;
-  }
-  
-  mat-nav-list a:hover {
-    background: rgba(124, 58, 237, 0.25);
-  }
-  
-  mat-nav-list mat-icon {
-    color: #BDBDBD;
-  }
-  
-  .mdc-list-item__primary-text {
-    color: white !important;
-  }
+  width: 300px;
+  height: 100%;
+  background: #111827;
+  color: white;
+  overflow-y: auto;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  white-space: nowrap;
+}
+
+.logo span {
+  white-space: nowrap;
+}
+
+.logo mat-icon {
+  color: #7C3AED;
+}
+
+mat-nav-list {
+  padding: 10px;
+}
+
+mat-nav-list a {
+  color: white !important;
+  border-radius: 10px;
+  margin-bottom: 6px;
+}
+
+mat-nav-list a:hover {
+  background: rgba(124, 58, 237, 0.25);
+}
+
+mat-nav-list mat-icon {
+  color: #BDBDBD;
+}

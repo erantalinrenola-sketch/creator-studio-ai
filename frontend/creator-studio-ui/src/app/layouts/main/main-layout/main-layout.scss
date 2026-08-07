@@ -1,11 +1,17 @@
 .main-container {
-    display: flex;
-  }
-  
-  .content {
-    flex: 1;
-    padding: 30px;
-    background: #0F172A;
-    color: white;
-    min-height: calc(100vh - 64px);
-  }
+  display: flex;
+  height: calc(100vh - 64px);
+}
+
+.sidebar {
+  width: 300px;
+  flex-shrink: 0;
+}
+
+.content {
+  flex: 1;
+  padding: 30px;
+  background: #0F172A;
+  color: white;
+  overflow-y: auto;
+}
