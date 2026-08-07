@@ -1,0 +1,30 @@
+<h2>Create Project</h2>
+
+<div class="form-group">
+  <label>Project Name</label>
+  <input
+    type="text"
+    [(ngModel)]="project.name">
+</div>
+
+<div class="form-group">
+  <label>Description</label>
+  <textarea
+    rows="4"
+    [(ngModel)]="project.description">
+  </textarea>
+</div>
+
+<div class="form-group">
+  <label>Status</label>
+  <select [(ngModel)]="project.status">
+    <option value="Draft">Draft</option>
+    <option value="In Progress">In Progress</option>
+    <option value="Completed">Completed</option>
+  </select>
+</div>
+
+<div class="actions">
+  <button (click)="cancel()">Cancel</button>
+  <button (click)="createProject()">Create</button>
+</div>

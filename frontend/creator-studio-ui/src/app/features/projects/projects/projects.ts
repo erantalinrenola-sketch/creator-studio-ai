@@ -1,12 +1,17 @@
 import { Component } from '@angular/core';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { CreateProjectDialog } from '../create-project-dialog/create-project-dialog';
 
 @Component({
   selector: 'app-projects',
-  imports: [],
+  standalone: true,
+  imports: [MatDialogModule],
   templateUrl: './projects.html',
   styleUrl: './projects.scss',
 })
 export class Projects {
+
+  constructor(private dialog: MatDialog) {}
 
   projects = [
     {
@@ -25,5 +30,27 @@ export class Projects {
       status: 'Draft'
     }
   ];
+
+  openCreateProjectDialog() {
+
+    const dialogRef = this.dialog.open(CreateProjectDialog, {
+      width: '500px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      if (result) {
+
+        this.projects.push({
+          name: result.name,
+          description: result.description,
+          status: result.status
+        });
+
+      }
+
+    });
+
+  }
 
 }
