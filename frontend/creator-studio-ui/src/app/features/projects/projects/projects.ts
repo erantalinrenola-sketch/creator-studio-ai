@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CreateProjectDialog } from '../create-project-dialog/create-project-dialog';
+import { ProjectService } from '../../../core/services/project.service';
 
 @Component({
   selector: 'app-projects',
@@ -10,27 +11,46 @@ import { CreateProjectDialog } from '../create-project-dialog/create-project-dia
   templateUrl: './projects.html',
   styleUrl: './projects.scss',
 })
-export class Projects {
+export class Projects implements OnInit {
 
-  constructor(private dialog: MatDialog) {}
+  projects: any[] = [];
 
-  projects = [
-    {
-      name: 'Creator Studio AI',
-      description: 'AI Content Creation Platform',
-      status: 'Completed'
-    },
-    {
-      name: 'CRM Web App',
-      description: 'Angular + Spring Boot Project',
-      status: 'In Progress'
-    },
-    {
-      name: 'YouTube Automation',
-      description: 'Video Generation Workflow',
-      status: 'Draft'
+  constructor(
+    private dialog: MatDialog,
+    private projectService: ProjectService
+  ) {}
+
+  ngOnInit() {
+
+    const savedProjects = this.projectService.getProjects();
+
+    if (savedProjects.length > 0) {
+
+      this.projects = savedProjects;
+
+    } else {
+
+      this.projects = [
+        {
+          name: 'Creator Studio AI',
+          description: 'AI Content Creation Platform',
+          status: 'Completed'
+        },
+        {
+          name: 'CRM Web App',
+          description: 'Angular + Spring Boot Project',
+          status: 'In Progress'
+        },
+        {
+          name: 'YouTube Automation',
+          description: 'Video Generation Workflow',
+          status: 'Draft'
+        }
+      ];
+
+      this.projectService.saveProjects(this.projects);
     }
-  ];
+  }
 
   openCreateProjectDialog() {
 
@@ -39,8 +59,6 @@ export class Projects {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-
-      console.log('RESULT RECEIVED:', result);
 
       if (result) {
 
@@ -53,8 +71,7 @@ export class Projects {
           }
         ];
 
-        console.log('Projects Array:', this.projects);
-        console.log('Projects Length:', this.projects.length);
+        this.projectService.saveProjects(this.projects);
 
       }
 
