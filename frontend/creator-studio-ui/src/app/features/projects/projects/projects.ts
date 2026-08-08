@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CreateProjectDialog } from '../create-project-dialog/create-project-dialog';
@@ -5,7 +6,7 @@ import { CreateProjectDialog } from '../create-project-dialog/create-project-dia
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [MatDialogModule],
+  imports: [CommonModule, MatDialogModule],
   templateUrl: './projects.html',
   styleUrl: './projects.scss',
 })
@@ -39,13 +40,21 @@ export class Projects {
 
     dialogRef.afterClosed().subscribe(result => {
 
+      console.log('RESULT RECEIVED:', result);
+
       if (result) {
 
-        this.projects.push({
-          name: result.name,
-          description: result.description,
-          status: result.status
-        });
+        this.projects = [
+          ...this.projects,
+          {
+            name: result.name,
+            description: result.description,
+            status: result.status
+          }
+        ];
+
+        console.log('Projects Array:', this.projects);
+        console.log('Projects Length:', this.projects.length);
 
       }
 
