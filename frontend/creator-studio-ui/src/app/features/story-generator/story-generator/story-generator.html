@@ -1,1 +1,35 @@
-<p>story-generator works!</p>
+<h1>Story Generator</h1>
+
+<p class="subtitle">
+  Convert a simple story into a video script.
+</p>
+
+<div class="story-section">
+
+  <h2>Enter Story</h2>
+
+  <textarea
+    [(ngModel)]="story"
+    rows="8"
+    placeholder="Write your story here...">
+  </textarea>
+
+  <button
+    class="generate-btn"
+    (click)="generateScript()">
+    Generate Script
+  </button>
+
+</div>
+
+<div
+  class="script-section"
+  *ngIf="script">
+
+  <h2>Generated Script</h2>
+
+  <div class="script-box">
+    <pre>{{ script }}</pre>
+  </div>
+
+</div>

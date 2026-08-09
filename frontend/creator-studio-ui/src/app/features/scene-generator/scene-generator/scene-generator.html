@@ -1,1 +1,39 @@
-<p>scene-generator works!</p>
+<h1>Scene Generator</h1>
+
+<p class="subtitle">
+  Generate scenes from your script.
+</p>
+
+<div class="script-section">
+
+  <h2>Enter Script</h2>
+
+  <textarea
+    [(ngModel)]="script"
+    rows="8"
+    placeholder="Paste your script here...">
+  </textarea>
+
+  <button
+    class="generate-btn"
+    (click)="generateScenes()">
+    Generate Scenes
+  </button>
+
+</div>
+
+<div
+  class="scenes-section"
+  *ngIf="scenes.length > 0">
+
+  <h2>Generated Scenes</h2>
+
+  <div
+    class="scene-card"
+    *ngFor="let scene of scenes">
+
+    {{ scene }}
+
+  </div>
+
+</div>

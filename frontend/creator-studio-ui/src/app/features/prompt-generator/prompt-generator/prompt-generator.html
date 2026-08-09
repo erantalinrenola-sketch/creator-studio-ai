@@ -1,1 +1,47 @@
-<p>prompt-generator works!</p>
+<h1>Prompt Generator</h1>
+
+<p class="subtitle">
+  Generate character and scene prompts from your script.
+</p>
+
+<div class="script-section">
+
+  <h2>Enter Script</h2>
+
+  <textarea
+    [(ngModel)]="script"
+    rows="8"
+    placeholder="Paste your script here...">
+  </textarea>
+
+  <button
+    class="generate-btn"
+    (click)="generatePrompts()">
+    Generate Prompts
+  </button>
+
+</div>
+
+<div
+  class="prompt-section"
+  *ngIf="characterPrompt">
+
+  <h2>Character Prompt</h2>
+
+  <div class="prompt-box">
+    <pre>{{ characterPrompt }}</pre>
+  </div>
+
+</div>
+
+<div
+  class="prompt-section"
+  *ngIf="scenePrompt">
+
+  <h2>Scene Prompt</h2>
+
+  <div class="prompt-box">
+    <pre>{{ scenePrompt }}</pre>
+  </div>
+
+</div>

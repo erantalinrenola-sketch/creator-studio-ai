@@ -1,1 +1,36 @@
-<p>image-studio works!</p>
+<h1>Image Studio</h1>
+
+<p class="subtitle">
+  Generate AI images from prompts.
+</p>
+
+<div class="prompt-section">
+
+  <h2>Enter Image Prompt</h2>
+
+  <textarea
+    [(ngModel)]="prompt"
+    rows="8"
+    placeholder="Describe the image you want to generate...">
+  </textarea>
+
+  <button
+    class="generate-btn"
+    (click)="generateImage()">
+    Generate Image
+  </button>
+
+</div>
+
+<div
+  class="image-section"
+  *ngIf="generatedImage">
+
+  <h2>Generated Image</h2>
+
+  <img
+    [src]="generatedImage"
+    alt="Generated Image"
+    class="generated-image">
+
+</div>
