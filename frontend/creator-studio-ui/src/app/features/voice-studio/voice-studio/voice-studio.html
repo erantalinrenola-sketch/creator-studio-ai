@@ -1,1 +1,39 @@
-<p>voice-studio works!</p>
+<h1>Voice Studio</h1>
+
+<p class="subtitle">
+  Generate AI voice from your script.
+</p>
+
+<div class="script-section">
+
+  <h2>Enter Script</h2>
+
+  <textarea
+    [(ngModel)]="script"
+    rows="8"
+    placeholder="Enter script for voice generation...">
+  </textarea>
+
+  <button
+    class="generate-btn"
+    (click)="generateVoice()">
+    Generate Voice
+  </button>
+
+</div>
+
+<div
+  class="audio-section"
+  *ngIf="audioGenerated">
+
+  <h2>Audio Preview</h2>
+
+  <audio controls>
+    <source
+      src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+      type="audio/mpeg">
+  </audio>
+
+  <p>AI voice generated successfully.</p>
+
+</div>

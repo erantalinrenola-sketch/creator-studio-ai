@@ -1,0 +1,43 @@
+h1 {
+    color: white;
+    margin-bottom: 10px;
+  }
+  
+  .subtitle {
+    color: #CBD5E1;
+    margin-bottom: 25px;
+  }
+  
+  .summary-section,
+  .video-section {
+    background: #1E293B;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+  }
+  
+  .summary-section h2,
+  .video-section h2 {
+    color: white;
+    margin-top: 0;
+  }
+  
+  .summary-section p {
+    color: #E2E8F0;
+  }
+  
+  .generate-btn,
+  .download-btn {
+    margin-top: 15px;
+    background: #7C3AED;
+    color: white;
+    border: none;
+    padding: 11px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  video {
+    margin-top: 15px;
+    border-radius: 10px;
+  }

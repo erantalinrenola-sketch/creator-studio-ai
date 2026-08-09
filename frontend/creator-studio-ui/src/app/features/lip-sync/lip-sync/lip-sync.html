@@ -1,1 +1,51 @@
-<p>lip-sync works!</p>
+<h1>Lip Sync Studio</h1>
+
+<p class="subtitle">
+  Combine character image and voice to create a talking avatar.
+</p>
+
+<div class="lip-sync-section">
+
+  <h2>Character Image URL</h2>
+
+  <input
+    type="text"
+    [(ngModel)]="characterImage"
+    placeholder="Enter character image URL">
+
+  <h2>Audio File Name</h2>
+
+  <input
+    type="text"
+    [(ngModel)]="audioFile"
+    placeholder="Enter audio file name">
+
+  <button
+    class="generate-btn"
+    (click)="generateLipSync()">
+    Generate Lip Sync
+  </button>
+
+</div>
+
+<div
+  class="video-section"
+  *ngIf="videoGenerated">
+
+  <h2>Talking Character Preview</h2>
+
+  <video
+    controls
+    width="100%">
+
+    <source
+      src="https://www.w3schools.com/html/mov_bbb.mp4"
+      type="video/mp4">
+
+  </video>
+
+  <p>
+    Lip Sync video generated successfully.
+  </p>
+
+</div>

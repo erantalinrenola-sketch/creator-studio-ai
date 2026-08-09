@@ -1,0 +1,49 @@
+h1 {
+    color: white;
+    margin-bottom: 10px;
+  }
+  
+  .subtitle {
+    color: #CBD5E1;
+    margin-bottom: 25px;
+  }
+  
+  .lip-sync-section,
+  .video-section {
+    background: #1E293B;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+  }
+  
+  .lip-sync-section h2,
+  .video-section h2 {
+    color: white;
+    margin-top: 15px;
+  }
+  
+  input {
+    width: 100%;
+    box-sizing: border-box;
+    background: #0F172A;
+    color: white;
+    border: 1px solid #475569;
+    border-radius: 8px;
+    padding: 12px;
+    margin-top: 10px;
+  }
+  
+  .generate-btn {
+    margin-top: 20px;
+    background: #7C3AED;
+    color: white;
+    border: none;
+    padding: 11px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  video {
+    margin-top: 15px;
+    border-radius: 10px;
+  }

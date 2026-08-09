@@ -1,1 +1,49 @@
-<p>video-studio works!</p>
+<h1>Video Studio</h1>
+
+<p class="subtitle">
+  Create the final AI video from generated assets.
+</p>
+
+<div class="summary-section">
+
+  <h2>Project Summary</h2>
+
+  <p><strong>Total Scenes:</strong> 5</p>
+
+  <p><strong>Images Generated:</strong> 5</p>
+
+  <p><strong>Voice Generated:</strong> Yes</p>
+
+  <p><strong>Lip Sync Clips:</strong> 5</p>
+
+  <button
+    class="generate-btn"
+    (click)="generateFinalVideo()">
+    Generate Final Video
+  </button>
+
+</div>
+
+<div
+  class="video-section"
+  *ngIf="finalVideoGenerated">
+
+  <h2>Final Video Preview</h2>
+
+  <video
+    controls
+    width="100%">
+
+    <source
+      src="https://www.w3schools.com/html/mov_bbb.mp4"
+      type="video/mp4">
+
+  </video>
+
+  <br><br>
+
+  <button class="download-btn">
+    Download Video
+  </button>
+
+</div>

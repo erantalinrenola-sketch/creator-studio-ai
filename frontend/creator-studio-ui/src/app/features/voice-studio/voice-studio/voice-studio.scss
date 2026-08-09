@@ -1,0 +1,51 @@
+h1 {
+    color: white;
+    margin-bottom: 10px;
+  }
+  
+  .subtitle {
+    color: #CBD5E1;
+    margin-bottom: 25px;
+  }
+  
+  .script-section,
+  .audio-section {
+    background: #1E293B;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+  }
+  
+  .script-section h2,
+  .audio-section h2 {
+    color: white;
+    margin-top: 0;
+  }
+  
+  textarea {
+    width: 100%;
+    box-sizing: border-box;
+    background: #0F172A;
+    color: white;
+    border: 1px solid #475569;
+    border-radius: 8px;
+    padding: 15px;
+    resize: vertical;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  
+  .generate-btn {
+    margin-top: 15px;
+    background: #7C3AED;
+    color: white;
+    border: none;
+    padding: 11px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  audio {
+    width: 100%;
+    margin-top: 15px;
+  }
