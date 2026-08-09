@@ -1,0 +1,23 @@
+h1 {
+    color: white;
+  }
+  
+  .task-card {
+    background: #1E293B;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+  }
+  
+  button {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .delete-btn {
+    background: red;
+    color: white;
+  }

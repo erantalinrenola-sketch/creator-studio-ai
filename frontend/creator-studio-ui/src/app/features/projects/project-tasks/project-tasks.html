@@ -1,0 +1,32 @@
+<h1>Project Tasks</h1>
+
+<button (click)="addTask()">
+  Add Task
+</button>
+
+<br><br>
+
+<div
+  class="task-card"
+  *ngFor="let task of tasks; let i = index">
+
+  <h3>{{ task.name }}</h3>
+
+  <p>
+    Status:
+    {{ task.completed ? 'Completed' : 'Pending' }}
+  </p>
+  
+  <button (click)="toggleTask(i)">
+    Mark Complete
+  </button>
+  
+  <br><br>
+
+  <button
+    class="delete-btn"
+    (click)="deleteTask(i)">
+    Delete
+  </button>
+
+</div>

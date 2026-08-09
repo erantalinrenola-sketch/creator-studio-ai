@@ -50,6 +50,7 @@ export class Projects implements OnInit {
 
       this.projectService.saveProjects(this.projects);
     }
+
   }
 
   openCreateProjectDialog() {
@@ -73,6 +74,29 @@ export class Projects implements OnInit {
 
         this.projectService.saveProjects(this.projects);
 
+      }
+
+    });
+
+  }
+
+  editProject(index: number) {
+
+    const dialogRef = this.dialog.open(CreateProjectDialog, {
+      width: '600px',
+      data: this.projects[index]
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      if (result) {
+
+        this.projects = this.projects.map((project, i) =>
+          i === index ? result : project
+        );
+      
+        this.projectService.saveProjects(this.projects);
+      
       }
 
     });

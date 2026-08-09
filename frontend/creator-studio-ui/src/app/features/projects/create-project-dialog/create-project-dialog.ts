@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogRef
+} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-create-project-dialog',
@@ -18,8 +21,15 @@ export class CreateProjectDialog {
   };
 
   constructor(
-    private dialogRef: MatDialogRef<CreateProjectDialog>
-  ) {}
+    private dialogRef: MatDialogRef<CreateProjectDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+
+    if (data) {
+      this.project = { ...data };
+    }
+
+  }
 
   createProject() {
     this.dialogRef.close(this.project);
@@ -28,4 +38,5 @@ export class CreateProjectDialog {
   cancel() {
     this.dialogRef.close();
   }
+
 }
