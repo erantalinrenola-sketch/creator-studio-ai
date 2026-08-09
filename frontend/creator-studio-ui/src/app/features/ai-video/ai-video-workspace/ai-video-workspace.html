@@ -1,0 +1,99 @@
+<h1>AI Video Creator</h1>
+
+<p class="subtitle">
+  Turn your story into an AI-generated video.
+</p>
+
+
+<!-- STEP 1: STORY -->
+
+<div class="story-section">
+
+  <h2>1. Enter Your Story</h2>
+
+  <textarea
+    [(ngModel)]="story"
+    rows="8"
+    placeholder="Write your story here...">
+  </textarea>
+
+  <button
+    class="generate-btn"
+    (click)="generateScript()">
+    Generate Script
+  </button>
+
+</div>
+
+
+<!-- STEP 2: SCRIPT -->
+
+<div
+  class="script-section"
+  *ngIf="script">
+
+  <h2>2. Generated Script</h2>
+
+  <div class="script-box">
+    <pre>{{ script }}</pre>
+  </div>
+
+  <button
+    class="next-btn"
+    (click)="generateCharacters()">
+    Generate Characters
+  </button>
+
+</div>
+
+
+<!-- STEP 3: CHARACTERS -->
+
+<div
+  class="characters-section"
+  *ngIf="characters.length > 0">
+
+  <h2>3. Characters</h2>
+
+  <div
+    class="character-card"
+    *ngFor="let character of characters">
+
+    <h3>{{ character.name }}</h3>
+
+    <p>
+      Role: {{ character.role }}
+    </p>
+
+  </div>
+
+  <button
+    class="next-btn"
+    (click)="generateCharacterPrompts()">
+    Generate Character Prompts
+  </button>
+
+</div>
+
+
+<!-- STEP 4: CHARACTER PROMPTS -->
+
+<div
+  class="character-prompts-section"
+  *ngIf="characterPrompts.length > 0">
+
+  <h2>4. Character Image Prompts</h2>
+
+  <div
+    class="character-prompt-card"
+    *ngFor="let character of characterPrompts">
+
+    <h3>{{ character.name }}</h3>
+
+    <p>
+      {{ character.prompt }}
+    </p>
+
+  </div>
+
+</div>

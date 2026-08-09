@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+
 import { CreateProjectDialog } from '../create-project-dialog/create-project-dialog';
 import { ProjectService } from '../../../core/services/project.service';
 
@@ -17,7 +19,8 @@ export class Projects implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -73,7 +76,6 @@ export class Projects implements OnInit {
         ];
 
         this.projectService.saveProjects(this.projects);
-
       }
 
     });
@@ -94,9 +96,8 @@ export class Projects implements OnInit {
         this.projects = this.projects.map((project, i) =>
           i === index ? result : project
         );
-      
+
         this.projectService.saveProjects(this.projects);
-      
       }
 
     });
@@ -114,8 +115,16 @@ export class Projects implements OnInit {
       this.projects.splice(index, 1);
 
       this.projectService.saveProjects(this.projects);
-
     }
+
+  }
+
+  viewProject(index: number) {
+
+    this.router.navigate([
+      '/project-details',
+      index
+    ]);
 
   }
 

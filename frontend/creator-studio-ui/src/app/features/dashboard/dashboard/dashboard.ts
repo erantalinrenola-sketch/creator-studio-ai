@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
+
 import { ProjectService } from '../../../core/services/project.service';
 import { TaskService } from '../../../core/services/task.service';
+import { UserService } from '../../../core/services/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,18 +18,22 @@ export class Dashboard implements OnInit {
   totalTasks = 0;
   completedTasks = 0;
   pendingTasks = 0;
+  totalUsers = 0;
 
   constructor(
     private projectService: ProjectService,
-    private taskService: TaskService
+    private taskService: TaskService,
+    private userService: UserService
   ) {}
 
   ngOnInit() {
 
     const projects = this.projectService.getProjects();
     const tasks = this.taskService.getTasks();
+    const users = this.userService.getUsers();
 
     this.totalProjects = projects.length;
+
     this.totalTasks = tasks.length;
 
     this.completedTasks = tasks.filter(
@@ -38,6 +44,7 @@ export class Dashboard implements OnInit {
       (task: any) => !task.completed
     ).length;
 
+    this.totalUsers = users.length;
   }
 
 }

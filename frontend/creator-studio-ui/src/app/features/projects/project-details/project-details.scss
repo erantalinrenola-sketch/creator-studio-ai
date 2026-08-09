@@ -1,0 +1,96 @@
+.back-btn {
+  background: #7C3AED;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 25px;
+}
+
+.project-details-card {
+  background: #1E293B;
+  color: white;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 700px;
+}
+
+.project-details-card h1 {
+  margin-top: 0;
+}
+
+.description {
+  color: #CBD5E1;
+  margin-top: 15px;
+}
+
+.status-section {
+  margin-top: 25px;
+}
+
+.status {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: #7C3AED;
+}
+
+/* Project Tasks */
+
+.project-tasks-section {
+  margin-top: 30px;
+  color: white;
+}
+
+.tasks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tasks-header h2 {
+  margin: 0;
+}
+
+.add-task-btn {
+  background: #7C3AED;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.task-card {
+  background: #1E293B;
+  color: white;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 15px;
+  max-width: 700px;
+}
+
+.task-card h3 {
+  margin-top: 0;
+}
+
+.complete-btn {
+  background: #22C55E;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.delete-btn {
+  background: #EF4444;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
