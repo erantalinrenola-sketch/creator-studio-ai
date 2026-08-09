@@ -79,4 +79,20 @@ export class Projects implements OnInit {
 
   }
 
+  deleteProject(index: number) {
+
+    const confirmed = confirm(
+      'Are you sure you want to delete this project?'
+    );
+
+    if (confirmed) {
+
+      this.projects.splice(index, 1);
+
+      this.projectService.saveProjects(this.projects);
+
+    }
+
+  }
+
 }
