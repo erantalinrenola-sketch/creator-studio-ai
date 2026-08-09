@@ -1,17 +1,45 @@
 <h1>Image Studio</h1>
 
 <p class="subtitle">
-  Generate AI images from prompts.
+  Generate images from your scenes and prompts.
 </p>
+
+
+<!-- AVAILABLE SCENES -->
+
+<div
+  class="scenes-section"
+  *ngIf="scenes.length > 0">
+
+  <h2>Available Scenes</h2>
+
+  <div
+    class="scene-card"
+    *ngFor="let scene of scenes; let i = index">
+
+    <h3>{{ scene }}</h3>
+
+    <button
+      class="generate-btn"
+      (click)="prompt = scene">
+      Use This Scene
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- IMAGE PROMPT -->
 
 <div class="prompt-section">
 
-  <h2>Enter Image Prompt</h2>
+  <h2>Image Prompt</h2>
 
   <textarea
     [(ngModel)]="prompt"
-    rows="8"
-    placeholder="Describe the image you want to generate...">
+    rows="6"
+    placeholder="Enter an image prompt...">
   </textarea>
 
   <button
@@ -21,6 +49,9 @@
   </button>
 
 </div>
+
+
+<!-- GENERATED IMAGE -->
 
 <div
   class="image-section"

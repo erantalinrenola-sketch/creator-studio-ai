@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+
+import { AiVideoService } from '../../../core/services/ai-video.service';
 
 @Component({
   selector: 'app-voice-studio',
@@ -9,20 +11,35 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './voice-studio.html',
   styleUrl: './voice-studio.scss',
 })
-export class VoiceStudio {
+export class VoiceStudio implements OnInit {
 
   script = '';
 
   audioGenerated = false;
 
+  constructor(
+    private aiVideoService: AiVideoService
+  ) {}
+
+  ngOnInit() {
+
+    this.script = this.aiVideoService.script;
+
+  }
+
   generateVoice() {
 
     if (!this.script.trim()) {
-      alert('Please enter a script first.');
+      alert('Please generate a script in Story Generator first.');
       return;
     }
 
     this.audioGenerated = true;
+
+    this.aiVideoService.generatedAudio.push({
+      script: this.script,
+      audioGenerated: true
+    });
 
   }
 

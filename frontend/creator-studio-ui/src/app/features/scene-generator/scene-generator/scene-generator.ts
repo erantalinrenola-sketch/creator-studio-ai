@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+
+import { AiVideoService } from '../../../core/services/ai-video.service';
 
 @Component({
   selector: 'app-scene-generator',
@@ -9,16 +11,26 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './scene-generator.html',
   styleUrl: './scene-generator.scss',
 })
-export class SceneGenerator {
+export class SceneGenerator implements OnInit {
 
   script = '';
 
   scenes: string[] = [];
 
+  constructor(
+    private aiVideoService: AiVideoService
+  ) {}
+
+  ngOnInit() {
+
+    this.script = this.aiVideoService.script;
+
+  }
+
   generateScenes() {
 
     if (!this.script.trim()) {
-      alert('Please enter a script first.');
+      alert('Please generate a script in Story Generator first.');
       return;
     }
 
@@ -29,6 +41,8 @@ export class SceneGenerator {
       'Scene 4: Character overcomes the challenge.',
       'Scene 5: Character returns home with new understanding.'
     ];
+
+    this.aiVideoService.scenes = this.scenes;
 
   }
 

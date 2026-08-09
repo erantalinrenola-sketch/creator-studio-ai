@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+import { AiVideoService } from '../../../core/services/ai-video.service';
+
 @Component({
   selector: 'app-story-generator',
   standalone: true,
@@ -14,6 +16,10 @@ export class StoryGenerator {
   story = '';
 
   script = '';
+
+  constructor(
+    private aiVideoService: AiVideoService
+  ) {}
 
   generateScript() {
 
@@ -43,6 +49,9 @@ Scene 5:
 
 The story ends with the character returning home with a new understanding.
 `;
+
+    this.aiVideoService.story = this.story;
+    this.aiVideoService.script = this.script;
 
   }
 

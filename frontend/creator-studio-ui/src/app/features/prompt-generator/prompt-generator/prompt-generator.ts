@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+
+import { AiVideoService } from '../../../core/services/ai-video.service';
 
 @Component({
   selector: 'app-prompt-generator',
@@ -9,7 +11,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './prompt-generator.html',
   styleUrl: './prompt-generator.scss',
 })
-export class PromptGenerator {
+export class PromptGenerator implements OnInit {
 
   script = '';
 
@@ -17,10 +19,20 @@ export class PromptGenerator {
 
   scenePrompt = '';
 
+  constructor(
+    private aiVideoService: AiVideoService
+  ) {}
+
+  ngOnInit() {
+
+    this.script = this.aiVideoService.script;
+
+  }
+
   generatePrompts() {
 
     if (!this.script.trim()) {
-      alert('Please enter a script first.');
+      alert('Please generate a script in Story Generator first.');
       return;
     }
 
@@ -36,6 +48,14 @@ golden sunlight, fantasy atmosphere,
 cinematic lighting, ultra detailed,
 3D animation style.
 `;
+
+    this.aiVideoService.characterPrompts = [
+      this.characterPrompt
+    ];
+
+    this.aiVideoService.scenePrompts = [
+      this.scenePrompt
+    ];
 
   }
 
