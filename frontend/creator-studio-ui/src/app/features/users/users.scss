@@ -1,0 +1,52 @@
+.users-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .users-header h1 {
+    color: #111827;
+  }
+  
+  .add-user-btn {
+    background: #7C3AED;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .users-grid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+  }
+  
+  .user-card {
+    width: 280px;
+    background: #1E293B;
+    padding: 20px;
+    border-radius: 12px;
+    color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .user-card h2 {
+    margin-top: 0;
+  }
+  
+  .user-card p {
+    color: #CBD5E1;
+  }
+  
+  .delete-btn {
+    margin-top: 15px;
+    background: #EF4444;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+  }

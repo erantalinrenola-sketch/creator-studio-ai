@@ -1,0 +1,33 @@
+<div class="users-header">
+
+    <h1>Team Members</h1>
+  
+    <button
+      class="add-user-btn"
+      (click)="addUser()">
+      Add User
+    </button>
+  
+  </div>
+  
+  <p>Total Users: {{ users.length }}</p>
+  
+  <div class="users-grid">
+  
+    <div
+      class="user-card"
+      *ngFor="let user of users; let i = index">
+  
+      <h2>{{ user.name }}</h2>
+  
+      <p>{{ user.role }}</p>
+  
+      <button
+        class="delete-btn"
+        (click)="deleteUser(i)">
+        Delete
+      </button>
+  
+    </div>
+  
+  </div>

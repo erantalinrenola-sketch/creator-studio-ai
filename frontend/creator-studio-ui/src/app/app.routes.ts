@@ -9,6 +9,7 @@ import { StoryGenerator } from './features/story-generator/story-generator/story
 import { SceneGenerator } from './features/scene-generator/scene-generator/scene-generator';
 import { PromptGenerator } from './features/prompt-generator/prompt-generator/prompt-generator';
 import { ImageStudio } from './features/image-studio/image-studio/image-studio';
+import { Users } from './features/users/users';
 import { VideoStudio } from './features/video-studio/video-studio/video-studio';
 import { VoiceStudio } from './features/voice-studio/voice-studio/voice-studio';
 import { LipSync } from './features/lip-sync/lip-sync/lip-sync';
@@ -24,6 +25,7 @@ export const routes: Routes = [
 
       { path: 'dashboard', component: Dashboard },
       { path: 'projects', component: Projects },
+      { path: 'users', component: Users },
       { path: 'project-tasks', component: ProjectTasks },
       { path: 'story-generator', component: StoryGenerator },
       { path: 'scene-generator', component: SceneGenerator },
