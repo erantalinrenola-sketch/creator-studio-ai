@@ -1,10 +1,11 @@
-<div *ngIf="project">
+<button
+  class="back-btn"
+  (click)="goBack()">
+  ← Back to Projects
+</button>
 
-  <button
-    class="back-btn"
-    (click)="goBack()">
-    ← Back to Projects
-  </button>
+
+<div *ngIf="project">
 
   <div class="project-details-card">
 
@@ -24,64 +25,71 @@
 
     </div>
 
+
+    <!-- AI VIDEO WORKSPACE -->
+
+    <button
+      class="ai-video-btn"
+      (click)="openAiVideoWorkspace()">
+      🎬 Open AI Video Workspace
+    </button>
+
   </div>
 
 
   <!-- PROJECT TASKS -->
 
-  <div class="project-tasks-section">
+  <div class="tasks-header">
 
-    <div class="tasks-header">
+    <h2>Project Tasks</h2>
 
-      <h2>Project Tasks</h2>
-
-      <button
-        class="add-task-btn"
-        (click)="addProjectTask()">
-        Add Task
-      </button>
-
-    </div>
-
-    <p>
-      Total Tasks: {{ projectTasks.length }}
-    </p>
-
-
-    <div
-      class="task-card"
-      *ngFor="let task of projectTasks; let i = index">
-
-      <h3>{{ task.name }}</h3>
-
-      <p>
-        Status:
-        {{ task.completed ? 'Completed' : 'Pending' }}
-      </p>
-
-      <button
-        class="complete-btn"
-        (click)="toggleProjectTask(i)">
-        {{ task.completed ? 'Mark Pending' : 'Mark Complete' }}
-      </button>
-
-      <button
-        class="delete-btn"
-        (click)="deleteProjectTask(i)">
-        Delete
-      </button>
-
-    </div>
-
-
-    <p *ngIf="projectTasks.length === 0">
-      No tasks added to this project yet.
-    </p>
+    <button
+      class="add-task-btn"
+      (click)="addProjectTask()">
+      Add Task
+    </button>
 
   </div>
 
+  <p>
+    Total Tasks: {{ projectTasks.length }}
+  </p>
+
+
+  <div
+    class="task-card"
+    *ngFor="let task of projectTasks; let i = index">
+
+    <h3>{{ task.name }}</h3>
+
+    <p>
+      Status:
+      {{ task.completed ? 'Completed' : 'Pending' }}
+    </p>
+
+    <button
+      class="complete-btn"
+      (click)="toggleProjectTask(i)">
+      {{ task.completed ? 'Mark Pending' : 'Mark Complete' }}
+    </button>
+
+    <button
+      class="delete-btn"
+      (click)="deleteProjectTask(i)">
+      Delete
+    </button>
+
+  </div>
+
+
+  <p *ngIf="projectTasks.length === 0">
+    No tasks added to this project yet.
+  </p>
+
 </div>
 
+
+<!-- PROJECT NOT FOUND -->
 
 <div *ngIf="!project">
 

@@ -1,6 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+
+import { ProjectService } from '../../../core/services/project.service';
+import { AiVideoService } from '../../../core/services/ai-video.service';
 
 @Component({
   selector: 'app-ai-video-workspace',
@@ -9,7 +13,11 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './ai-video-workspace.html',
   styleUrl: './ai-video-workspace.scss'
 })
-export class AiVideoWorkspace {
+export class AiVideoWorkspace implements OnInit {
+
+  projectIndex = -1;
+
+  project: any = null;
 
   story = '';
 
@@ -18,6 +26,28 @@ export class AiVideoWorkspace {
   characters: any[] = [];
 
   characterPrompts: any[] = [];
+
+  constructor(
+    private route: ActivatedRoute,
+    private projectService: ProjectService,
+    private aiVideoService: AiVideoService
+  ) {}
+
+  ngOnInit() {
+
+    this.projectIndex = Number(
+      this.route.snapshot.paramMap.get('index')
+    );
+
+    const projects = this.projectService.getProjects();
+
+    if (projects[this.projectIndex]) {
+
+      this.project = projects[this.projectIndex];
+
+    }
+
+  }
 
   generateScript() {
 
@@ -47,6 +77,9 @@ Scene 5:
 
 The story ends with the character returning home with a new understanding.
 `;
+
+    this.aiVideoService.story = this.story;
+    this.aiVideoService.script = this.script;
 
   }
 

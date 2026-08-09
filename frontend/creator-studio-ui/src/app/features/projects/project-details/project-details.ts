@@ -107,15 +107,15 @@ export class ProjectDetails implements OnInit {
 
   deleteProjectTask(index: number) {
 
+    const task = this.projectTasks[index];
+
     const confirmed = confirm(
-      'Are you sure you want to delete this task?'
+      'Are you really sure you want to delete this task?'
     );
 
     if (!confirmed) {
       return;
     }
-
-    const task = this.projectTasks[index];
 
     const allTasks = this.taskService.getTasks();
 
@@ -130,6 +130,15 @@ export class ProjectDetails implements OnInit {
     this.taskService.saveTasks(updatedTasks);
 
     this.loadProjectTasks();
+
+  }
+
+  openAiVideoWorkspace() {
+
+    this.router.navigate([
+      '/ai-video',
+      this.projectIndex
+    ]);
 
   }
 

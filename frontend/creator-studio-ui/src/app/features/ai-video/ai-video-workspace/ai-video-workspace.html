@@ -5,6 +5,18 @@
 </p>
 
 
+<!-- CURRENT PROJECT -->
+
+<div
+  class="project-info"
+  *ngIf="project">
+
+  <strong>Project:</strong>
+  {{ project.name }}
+
+</div>
+
+
 <!-- STEP 1: STORY -->
 
 <div class="story-section">
@@ -70,22 +82,22 @@
   <button
     class="next-btn"
     (click)="generateCharacterPrompts()">
-    Generate Character Prompts
+    Generate Character Image Prompts
   </button>
 
 </div>
 
 
-<!-- STEP 4: CHARACTER PROMPTS -->
+<!-- STEP 4: CHARACTER IMAGE PROMPTS -->
 
 <div
-  class="character-prompts-section"
+  class="prompts-section"
   *ngIf="characterPrompts.length > 0">
 
   <h2>4. Character Image Prompts</h2>
 
   <div
-    class="character-prompt-card"
+    class="prompt-card"
     *ngFor="let character of characterPrompts">
 
     <h3>{{ character.name }}</h3>

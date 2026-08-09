@@ -28,7 +28,7 @@ export const routes: Routes = [
       { path: 'dashboard', component: Dashboard },
       { path: 'projects', component: Projects },
       { path: 'users', component: Users },
-      { path: 'ai-video', component: AiVideoWorkspace },
+      { path: 'ai-video/:index', component: AiVideoWorkspace },
       { path: 'project-tasks', component: ProjectTasks },
       { path: 'project-details/:index', component: ProjectDetails },
       { path: 'story-generator', component: StoryGenerator },
