@@ -1,35 +1,34 @@
 <h1>Video Studio</h1>
 
 <p class="subtitle">
-  Create the final AI video from generated assets.
+  Create the final video from your generated scenes, images, voice, and lip-sync.
 </p>
 
+<div class="video-stats">
 
-<!-- PROJECT SUMMARY -->
+  <div class="stat-card">
+    <h3>Scenes</h3>
+    <p>{{ totalScenes }}</p>
+  </div>
 
-<div class="summary-section">
+  <div class="stat-card">
+    <h3>Images</h3>
+    <p>{{ totalImages }}</p>
+  </div>
 
-  <h2>Project Summary</h2>
+  <div class="stat-card">
+    <h3>Audio</h3>
+    <p>{{ totalAudio }}</p>
+  </div>
 
-  <p>
-    <strong>Total Scenes:</strong>
-    {{ totalScenes }}
-  </p>
+  <div class="stat-card">
+    <h3>Lip Sync Videos</h3>
+    <p>{{ totalVideos }}</p>
+  </div>
 
-  <p>
-    <strong>Images Generated:</strong>
-    {{ totalImages }}
-  </p>
+</div>
 
-  <p>
-    <strong>Voice Generated:</strong>
-    {{ totalAudio > 0 ? 'Yes' : 'No' }}
-  </p>
-
-  <p>
-    <strong>Lip Sync Clips:</strong>
-    {{ totalVideos }}
-  </p>
+<div class="video-section">
 
   <button
     class="generate-btn"
@@ -40,28 +39,26 @@
 </div>
 
 
-<!-- FINAL VIDEO -->
-
 <div
-  class="video-section"
+  class="success-message"
   *ngIf="finalVideoGenerated">
 
-  <h2>Final Video Preview</h2>
+  <h2>Final Video Generated Successfully!</h2>
+
+  <p>
+    Your final video is ready.
+  </p>
 
   <video
     controls
-    width="100%">
+    width="600">
 
     <source
       src="https://www.w3schools.com/html/mov_bbb.mp4"
       type="video/mp4">
 
+    Your browser does not support the video tag.
+
   </video>
-
-  <br><br>
-
-  <button class="download-btn">
-    Download Video
-  </button>
 
 </div>

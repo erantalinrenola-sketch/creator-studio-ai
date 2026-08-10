@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 import { AiVideoService } from '../../../core/services/ai-video.service';
 
@@ -13,6 +14,8 @@ import { AiVideoService } from '../../../core/services/ai-video.service';
 })
 export class LipSync implements OnInit {
 
+  projectIndex = -1;
+
   characterImage = '';
 
   audioFile = '';
@@ -20,20 +23,40 @@ export class LipSync implements OnInit {
   videoGenerated = false;
 
   constructor(
+    private route: ActivatedRoute,
     private aiVideoService: AiVideoService
   ) {}
 
   ngOnInit() {
 
-    const images = this.aiVideoService.generatedImages;
-    const audio = this.aiVideoService.generatedAudio;
+    this.projectIndex = Number(
+      this.route.snapshot.paramMap.get('index')
+    );
+
+    const projectData =
+      this.aiVideoService.getProjectData(this.projectIndex);
+
+    const images = projectData.generatedImages;
+
+    const audio = projectData.generatedAudio;
 
     if (images.length > 0) {
-      this.characterImage = images[images.length - 1].image;
+
+      this.characterImage =
+        images[images.length - 1].image;
+
     }
 
     if (audio.length > 0) {
+
       this.audioFile = 'Generated Audio';
+
+    }
+
+    if (projectData.generatedVideos.length > 0) {
+
+      this.videoGenerated = true;
+
     }
 
   }
@@ -52,7 +75,10 @@ export class LipSync implements OnInit {
 
     this.videoGenerated = true;
 
-    this.aiVideoService.generatedVideos.push({
+    const projectData =
+      this.aiVideoService.getProjectData(this.projectIndex);
+
+    projectData.generatedVideos.push({
       image: this.characterImage,
       audio: this.audioFile,
       videoGenerated: true

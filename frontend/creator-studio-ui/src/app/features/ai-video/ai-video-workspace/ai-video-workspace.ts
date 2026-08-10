@@ -45,6 +45,13 @@ export class AiVideoWorkspace implements OnInit {
 
       this.project = projects[this.projectIndex];
 
+      const projectData =
+        this.aiVideoService.getProjectData(this.projectIndex);
+
+      this.story = projectData.story;
+
+      this.script = projectData.script;
+
     }
 
   }
@@ -78,8 +85,12 @@ Scene 5:
 The story ends with the character returning home with a new understanding.
 `;
 
-    this.aiVideoService.story = this.story;
-    this.aiVideoService.script = this.script;
+    const projectData =
+      this.aiVideoService.getProjectData(this.projectIndex);
+
+    projectData.story = this.story;
+
+    projectData.script = this.script;
 
   }
 
@@ -122,6 +133,11 @@ The story ends with the character returning home with a new understanding.
           'A distinctive supporting character with expressive facial features, unique clothing, warm personality, cinematic character design, detailed face, high quality.'
       }
     ];
+
+    const projectData =
+      this.aiVideoService.getProjectData(this.projectIndex);
+
+    projectData.characterPrompts = this.characterPrompts;
 
   }
 

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 import { AiVideoService } from '../../../core/services/ai-video.service';
 
@@ -13,6 +14,8 @@ import { AiVideoService } from '../../../core/services/ai-video.service';
 })
 export class PromptGenerator implements OnInit {
 
+  projectIndex = -1;
+
   script = '';
 
   characterPrompt = '';
@@ -20,19 +23,33 @@ export class PromptGenerator implements OnInit {
   scenePrompt = '';
 
   constructor(
+    private route: ActivatedRoute,
     private aiVideoService: AiVideoService
   ) {}
 
   ngOnInit() {
 
-    this.script = this.aiVideoService.script;
+    this.projectIndex = Number(
+      this.route.snapshot.paramMap.get('index')
+    );
+
+    const projectData =
+      this.aiVideoService.getProjectData(this.projectIndex);
+
+    this.script = projectData.script;
+
+    this.characterPrompt =
+      projectData.characterPrompts[0] || '';
+
+    this.scenePrompt =
+      projectData.scenePrompts[0] || '';
 
   }
 
   generatePrompts() {
 
     if (!this.script.trim()) {
-      alert('Please generate a script in Story Generator first.');
+      alert('Please generate a script in AI Video Workspace first.');
       return;
     }
 
@@ -49,11 +66,14 @@ cinematic lighting, ultra detailed,
 3D animation style.
 `;
 
-    this.aiVideoService.characterPrompts = [
+    const projectData =
+      this.aiVideoService.getProjectData(this.projectIndex);
+
+    projectData.characterPrompts = [
       this.characterPrompt
     ];
 
-    this.aiVideoService.scenePrompts = [
+    projectData.scenePrompts = [
       this.scenePrompt
     ];
 

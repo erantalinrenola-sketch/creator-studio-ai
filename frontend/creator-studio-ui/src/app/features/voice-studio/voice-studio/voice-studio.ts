@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 import { AiVideoService } from '../../../core/services/ai-video.service';
 
@@ -13,30 +14,47 @@ import { AiVideoService } from '../../../core/services/ai-video.service';
 })
 export class VoiceStudio implements OnInit {
 
+  projectIndex = -1;
+
   script = '';
 
   audioGenerated = false;
 
   constructor(
+    private route: ActivatedRoute,
     private aiVideoService: AiVideoService
   ) {}
 
   ngOnInit() {
 
-    this.script = this.aiVideoService.script;
+    this.projectIndex = Number(
+      this.route.snapshot.paramMap.get('index')
+    );
+
+    const projectData =
+      this.aiVideoService.getProjectData(this.projectIndex);
+
+    this.script = projectData.script;
+
+    if (projectData.generatedAudio.length > 0) {
+      this.audioGenerated = true;
+    }
 
   }
 
   generateVoice() {
 
     if (!this.script.trim()) {
-      alert('Please generate a script in Story Generator first.');
+      alert('Please generate a script in AI Video Workspace first.');
       return;
     }
 
     this.audioGenerated = true;
 
-    this.aiVideoService.generatedAudio.push({
+    const projectData =
+      this.aiVideoService.getProjectData(this.projectIndex);
+
+    projectData.generatedAudio.push({
       script: this.script,
       audioGenerated: true
     });

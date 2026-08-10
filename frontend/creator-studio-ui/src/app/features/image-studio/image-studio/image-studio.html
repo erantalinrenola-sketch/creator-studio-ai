@@ -15,7 +15,7 @@
 
   <div
     class="scene-card"
-    *ngFor="let scene of scenes; let i = index">
+    *ngFor="let scene of scenes">
 
     <h3>{{ scene }}</h3>
 
@@ -26,6 +26,23 @@
     </button>
 
   </div>
+
+</div>
+
+
+<!-- NO SCENES -->
+
+<div
+  class="empty-state"
+  *ngIf="scenes.length === 0">
+
+  <p>
+    No scenes available yet.
+  </p>
+
+  <p>
+    Please generate scenes first.
+  </p>
 
 </div>
 

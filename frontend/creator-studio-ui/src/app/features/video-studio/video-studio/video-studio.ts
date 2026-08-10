@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { AiVideoService } from '../../../core/services/ai-video.service';
 
@@ -12,6 +13,8 @@ import { AiVideoService } from '../../../core/services/ai-video.service';
 })
 export class VideoStudio implements OnInit {
 
+  projectIndex = -1;
+
   finalVideoGenerated = false;
 
   totalScenes = 0;
@@ -23,18 +26,34 @@ export class VideoStudio implements OnInit {
   totalVideos = 0;
 
   constructor(
+    private route: ActivatedRoute,
     private aiVideoService: AiVideoService
   ) {}
 
   ngOnInit() {
 
-    this.totalScenes = this.aiVideoService.scenes.length;
+    this.projectIndex = Number(
+      this.route.snapshot.paramMap.get('index')
+    );
 
-    this.totalImages = this.aiVideoService.generatedImages.length;
+    const projectData =
+      this.aiVideoService.getProjectData(this.projectIndex);
 
-    this.totalAudio = this.aiVideoService.generatedAudio.length;
+    this.totalScenes =
+      projectData.scenes.length;
 
-    this.totalVideos = this.aiVideoService.generatedVideos.length;
+    this.totalImages =
+      projectData.generatedImages.length;
+
+    this.totalAudio =
+      projectData.generatedAudio.length;
+
+    this.totalVideos =
+      projectData.generatedVideos.length;
+
+    if (projectData.generatedVideos.length > 0) {
+      this.finalVideoGenerated = true;
+    }
 
   }
 
