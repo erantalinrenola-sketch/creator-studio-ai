@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 export interface AiVideoProjectData {
   story: string;
@@ -38,8 +40,9 @@ export class AiVideoService {
 
   generatedVideos: any[] = [];
 
-  private createEmptyProjectData(): AiVideoProjectData {
+  constructor(private http: HttpClient) {}
 
+  private createEmptyProjectData(): AiVideoProjectData {
     return {
       story: '',
       script: '',
@@ -50,7 +53,6 @@ export class AiVideoService {
       generatedAudio: [],
       generatedVideos: []
     };
-
   }
 
   getProjectData(projectIndex: number): AiVideoProjectData {
@@ -63,7 +65,19 @@ export class AiVideoService {
     }
 
     return this.projectData[projectIndex];
+  }
 
+  generateScript(story: string): Observable<string> {
+
+    return this.http.post(
+      'http://localhost:8080/api/story/generate',
+      {
+        story: story
+      },
+      {
+        responseType: 'text'
+      }
+    );
   }
 
 }

@@ -15,10 +15,17 @@
   </textarea>
 
   <button
-    class="generate-btn"
-    (click)="generateScript()">
-    Generate Script
+  class="generate-btn"
+  (click)="generateScript()"
+  [disabled]="isGenerating">
+
+  {{ isGenerating ? 'Generating Script...' : 'Generate Script' }}
+
   </button>
+
+  <p *ngIf="isGenerating">
+    AI is generating your script. Please wait...
+  </p>
 
 </div>
 

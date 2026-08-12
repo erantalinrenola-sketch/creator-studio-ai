@@ -14,8 +14,8 @@ import { AiVideoService } from '../../../core/services/ai-video.service';
 export class StoryGenerator {
 
   story = '';
-
   script = '';
+  isGenerating = false;
 
   constructor(
     private aiVideoService: AiVideoService
@@ -28,31 +28,28 @@ export class StoryGenerator {
       return;
     }
 
-    this.script = `
-Scene 1:
+    this.isGenerating = true;
+    this.script = '';
 
-The story begins with our main character entering a mysterious world.
+    this.aiVideoService.generateScript(this.story).subscribe({
+      next: (response: string) => {
 
-Scene 2:
+        this.script = response;
 
-The character discovers something unexpected and starts exploring the surroundings.
+        this.aiVideoService.story = this.story;
+        this.aiVideoService.script = this.script;
 
-Scene 3:
+        this.isGenerating = false;
+      },
 
-A challenge appears, and the character must find a way to overcome it.
+      error: (error) => {
 
-Scene 4:
+        console.error('Script generation failed:', error);
 
-After overcoming the challenge, the character discovers the true meaning of the journey.
+        alert('Failed to generate script. Please make sure the backend is running.');
 
-Scene 5:
-
-The story ends with the character returning home with a new understanding.
-`;
-
-    this.aiVideoService.story = this.story;
-    this.aiVideoService.script = this.script;
-
+        this.isGenerating = false;
+      }
+    });
   }
-
 }
