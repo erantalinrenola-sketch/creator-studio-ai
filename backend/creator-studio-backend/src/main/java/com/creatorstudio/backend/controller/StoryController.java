@@ -14,7 +14,7 @@ public class StoryController {
         this.ollamaService = ollamaService;
     }
 
-    @PostMapping("/generate")
+    //@PostMapping("/generate")
     public String generateScript(@RequestBody StoryRequest request) {
 
         return ollamaService.generateScript(request.story());

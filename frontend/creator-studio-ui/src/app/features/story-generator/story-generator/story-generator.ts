@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef  } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { AiVideoService } from '../../../core/services/ai-video.service';
@@ -11,16 +11,25 @@ import { AiVideoService } from '../../../core/services/ai-video.service';
   templateUrl: './story-generator.html',
   styleUrl: './story-generator.scss',
 })
-export class StoryGenerator {
+export class StoryGenerator implements OnInit {
 
   story = '';
   script = '';
   isGenerating = false;
 
   constructor(
-    private aiVideoService: AiVideoService
+    private aiVideoService: AiVideoService,
+    private cdr: ChangeDetectorRef
   ) {}
 
+  ngOnInit(): void {
+
+    this.story = this.aiVideoService.getSavedStory();
+    this.script = this.aiVideoService.getSavedScript();
+
+    console.log('Loaded Story:', this.story);
+    console.log('Loaded Script Length:', this.script.length);
+  }
   generateScript() {
 
     if (!this.story.trim()) {
@@ -32,23 +41,43 @@ export class StoryGenerator {
     this.script = '';
 
     this.aiVideoService.generateScript(this.story).subscribe({
+
       next: (response: string) => {
 
-        this.script = response;
+        console.log('SCRIPT RECEIVED');
+        console.log('Response Length:', response?.length);
+        console.log('Response Data:', response);
+
+        this.script = String(response);
+
+        console.log('SCRIPT VALUE:');
+        console.log(this.script);
 
         this.aiVideoService.story = this.story;
         this.aiVideoService.script = this.script;
 
+        this.aiVideoService.saveStoryAndScript(
+          this.story,
+          this.script
+        );
+
         this.isGenerating = false;
+        
+  this.cdr.detectChanges();
+
+        console.log('isGenerating =', this.isGenerating);
+        console.log('script length =', this.script.length);
+
+        console.log('LOADING FALSE');
       },
 
       error: (error) => {
 
         console.error('Script generation failed:', error);
 
-        alert('Failed to generate script. Please make sure the backend is running.');
-
         this.isGenerating = false;
+
+        console.log('ERROR BLOCK EXECUTED');
       }
     });
   }

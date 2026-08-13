@@ -22,22 +22,14 @@ export class AiVideoService {
     [projectIndex: number]: AiVideoProjectData
   } = {};
 
-  // Temporary compatibility properties.
-  // These will be removed after all modules are migrated.
   story = '';
-
   script = '';
 
   characterPrompts: any[] = [];
-
   scenePrompts: any[] = [];
-
   scenes: any[] = [];
-
   generatedImages: any[] = [];
-
   generatedAudio: any[] = [];
-
   generatedVideos: any[] = [];
 
   constructor(private http: HttpClient) {}
@@ -58,10 +50,8 @@ export class AiVideoService {
   getProjectData(projectIndex: number): AiVideoProjectData {
 
     if (!this.projectData[projectIndex]) {
-
       this.projectData[projectIndex] =
         this.createEmptyProjectData();
-
     }
 
     return this.projectData[projectIndex];
@@ -78,6 +68,25 @@ export class AiVideoService {
         responseType: 'text'
       }
     );
+  }
+
+  saveStoryAndScript(story: string, script: string): void {
+
+    localStorage.setItem('creator_story', story);
+    localStorage.setItem('creator_script', script);
+
+  }
+
+  getSavedStory(): string {
+
+    return localStorage.getItem('creator_story') || '';
+
+  }
+
+  getSavedScript(): string {
+
+    return localStorage.getItem('creator_script') || '';
+
   }
 
 }

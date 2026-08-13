@@ -15,11 +15,11 @@
   </textarea>
 
   <button
-  class="generate-btn"
-  (click)="generateScript()"
-  [disabled]="isGenerating">
+    class="generate-btn"
+    (click)="generateScript()"
+    [disabled]="isGenerating">
 
-  {{ isGenerating ? 'Generating Script...' : 'Generate Script' }}
+    {{ isGenerating ? 'Generating Script...' : 'Generate Script' }}
 
   </button>
 
@@ -27,16 +27,17 @@
     AI is generating your script. Please wait...
   </p>
 
-</div>
+  <hr>
 
-<div
-  class="script-section"
-  *ngIf="script">
-
-  <h2>Generated Script</h2>
-
-  <div class="script-box">
-    <pre>{{ script }}</pre>
-  </div>
+  <p><b>Story Length:</b> {{ story.length }}</p>
+  <p><b>Script Length:</b> {{ script.length }}</p>
 
 </div>
+
+<h2>Generated Script</h2>
+
+<textarea
+  rows="25"
+  style="width:100%; margin-top:20px;">
+{{ script }}
+</textarea>
