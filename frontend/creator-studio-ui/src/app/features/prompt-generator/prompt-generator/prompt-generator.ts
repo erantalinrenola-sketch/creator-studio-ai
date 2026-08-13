@@ -16,11 +16,11 @@ export class PromptGenerator implements OnInit {
 
   projectIndex = -1;
 
-  script = '';
+  scenes: any[] = [];
 
-  characterPrompt = '';
+  characterPrompts: string[] = [];
 
-  scenePrompt = '';
+  scenePrompts: string[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -36,47 +36,97 @@ export class PromptGenerator implements OnInit {
     const projectData =
       this.aiVideoService.getProjectData(this.projectIndex);
 
-    this.script = projectData.script;
+    this.scenes =
+      projectData.scenes?.length
+        ? projectData.scenes
+        : JSON.parse(
+            localStorage.getItem('creator_scenes') || '[]'
+          );
 
-    this.characterPrompt =
-      projectData.characterPrompts[0] || '';
+    this.characterPrompts =
+      projectData.characterPrompts?.length
+        ? projectData.characterPrompts
+        : JSON.parse(
+            localStorage.getItem(
+              'creator_character_prompts'
+            ) || '[]'
+          );
 
-    this.scenePrompt =
-      projectData.scenePrompts[0] || '';
+    this.scenePrompts =
+      projectData.scenePrompts?.length
+        ? projectData.scenePrompts
+        : JSON.parse(
+            localStorage.getItem(
+              'creator_scene_prompts'
+            ) || '[]'
+          );
 
+    console.log('Scenes Loaded:', this.scenes.length);
+    console.log('Character Prompts:', this.characterPrompts.length);
+    console.log('Scene Prompts:', this.scenePrompts.length);
   }
 
   generatePrompts() {
 
-    if (!this.script.trim()) {
-      alert('Please generate a script in AI Video Workspace first.');
+    if (this.scenes.length === 0) {
+      alert('Please generate scenes first.');
       return;
     }
 
-    this.characterPrompt = `
-12-year-old boy, black hair, expressive eyes,
-blue shirt, brown shorts, cinematic character design,
-highly detailed face, fantasy adventure style.
+    this.characterPrompts = [];
+    this.scenePrompts = [];
+
+    this.scenes.forEach((scene: any) => {
+
+      const characterPrompt = `
+${scene.characters},
+realistic cinematic character,
+highly detailed face,
+professional movie quality,
+4k ultra realistic
 `;
 
-    this.scenePrompt = `
-Magical forest with glowing trees,
-golden sunlight, fantasy atmosphere,
-cinematic lighting, ultra detailed,
-3D animation style.
+      const scenePrompt = `
+${scene.location},
+${scene.action},
+emotion: ${scene.emotion},
+cinematic lighting,
+ultra realistic,
+movie scene,
+4k detailed environment
 `;
+
+      this.characterPrompts.push(
+        characterPrompt.trim()
+      );
+
+      this.scenePrompts.push(
+        scenePrompt.trim()
+      );
+
+    });
 
     const projectData =
       this.aiVideoService.getProjectData(this.projectIndex);
 
-    projectData.characterPrompts = [
-      this.characterPrompt
-    ];
+    projectData.characterPrompts =
+      this.characterPrompts;
 
-    projectData.scenePrompts = [
-      this.scenePrompt
-    ];
+    projectData.scenePrompts =
+      this.scenePrompts;
 
+    localStorage.setItem(
+      'creator_character_prompts',
+      JSON.stringify(this.characterPrompts)
+    );
+
+    localStorage.setItem(
+      'creator_scene_prompts',
+      JSON.stringify(this.scenePrompts)
+    );
+
+    console.log('Character Prompts Generated');
+    console.log('Scene Prompts Generated');
   }
 
 }

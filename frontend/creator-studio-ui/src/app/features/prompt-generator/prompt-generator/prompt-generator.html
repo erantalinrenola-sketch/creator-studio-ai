@@ -1,47 +1,37 @@
 <h1>Prompt Generator</h1>
 
 <p class="subtitle">
-  Generate character and scene prompts from your script.
+  Generate character and scene prompts from scenes.
 </p>
 
-<div class="script-section">
+<button
+  class="generate-btn"
+  (click)="generatePrompts()">
 
-  <h2>Enter Script</h2>
+  Generate Prompts
 
-  <textarea
-    [(ngModel)]="script"
-    rows="8"
-    placeholder="Paste your script here...">
-  </textarea>
-
-  <button
-    class="generate-btn"
-    (click)="generatePrompts()">
-    Generate Prompts
-  </button>
-
-</div>
+</button>
 
 <div
-  class="prompt-section"
-  *ngIf="characterPrompt">
+  *ngFor="let scene of scenes; let i = index"
+  class="prompt-section">
 
-  <h2>Character Prompt</h2>
-
-  <div class="prompt-box">
-    <pre>{{ characterPrompt }}</pre>
-  </div>
-
-</div>
-
-<div
-  class="prompt-section"
-  *ngIf="scenePrompt">
-
-  <h2>Scene Prompt</h2>
+  <h2>Scene {{ i + 1 }}</h2>
 
   <div class="prompt-box">
-    <pre>{{ scenePrompt }}</pre>
+
+    <h3>Character Prompt</h3>
+
+    <pre>
+{{ characterPrompts[i] }}
+    </pre>
+
+    <h3>Scene Prompt</h3>
+
+    <pre>
+{{ scenePrompts[i] }}
+    </pre>
+
   </div>
 
 </div>

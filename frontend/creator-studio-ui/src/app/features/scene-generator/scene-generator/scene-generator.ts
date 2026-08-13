@@ -65,9 +65,6 @@ export class SceneGenerator implements OnInit {
 
     sceneBlocks.forEach((block, index) => {
 
-      console.log('BLOCK ' + (index + 1));
-      console.log(block);
-
       const location =
         block.match(/LOCATION:(.*?)(CHARACTERS:|$)/is)?.[1]?.trim() || '';
 
@@ -82,12 +79,6 @@ export class SceneGenerator implements OnInit {
 
       const emotion =
         block.match(/EMOTION:(.*)/is)?.[1]?.trim() || '';
-
-      console.log('Location:', location);
-      console.log('Characters:', characters);
-      console.log('Action:', action);
-      console.log('Dialogue:', dialogue);
-      console.log('Emotion:', emotion);
 
       this.scenes.push({
         sceneNumber: index + 1,
@@ -104,6 +95,15 @@ export class SceneGenerator implements OnInit {
       this.aiVideoService.getProjectData(this.projectIndex);
 
     projectData.scenes = this.scenes;
+
+    localStorage.setItem(
+      'creator_scenes',
+      JSON.stringify(this.scenes)
+    );
+
+    console.log('Saving Scenes:', this.scenes);
+    console.log('Scenes Count:', this.scenes.length);
+    console.log('Scenes Saved To LocalStorage');
 
     console.log('Scenes Generated:', this.scenes);
   }
