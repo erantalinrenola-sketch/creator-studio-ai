@@ -6,18 +6,20 @@
 
 <div class="script-section">
 
-  <h2>Enter Script</h2>
+  <h2>Generated Script</h2>
 
   <textarea
     [(ngModel)]="script"
-    rows="8"
-    placeholder="Paste your script here...">
+    rows="12"
+    readonly>
   </textarea>
 
   <button
     class="generate-btn"
     (click)="generateScenes()">
+
     Generate Scenes
+
   </button>
 
 </div>
@@ -32,7 +34,34 @@
     class="scene-card"
     *ngFor="let scene of scenes">
 
-    {{ scene }}
+    <h3>
+      Scene {{ scene.sceneNumber }}
+    </h3>
+
+    <p>
+      <strong>Location:</strong><br>
+      {{ scene.location }}
+    </p>
+
+    <p>
+      <strong>Characters:</strong><br>
+      {{ scene.characters }}
+    </p>
+
+    <p>
+      <strong>Action:</strong><br>
+      {{ scene.action }}
+    </p>
+
+    <p>
+      <strong>Dialogue:</strong><br>
+      {{ scene.dialogue }}
+    </p>
+
+    <p>
+      <strong>Emotion:</strong><br>
+      {{ scene.emotion }}
+    </p>
 
   </div>
 
