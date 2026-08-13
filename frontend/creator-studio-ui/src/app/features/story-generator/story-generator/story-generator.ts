@@ -63,7 +63,7 @@ export class StoryGenerator implements OnInit {
 
         this.isGenerating = false;
         
-  this.cdr.detectChanges();
+        this.cdr.detectChanges();
 
         console.log('isGenerating =', this.isGenerating);
         console.log('script length =', this.script.length);
@@ -80,5 +80,28 @@ export class StoryGenerator implements OnInit {
         console.log('ERROR BLOCK EXECUTED');
       }
     });
+  }
+  clearStory() {
+
+    this.story = '';
+    this.script = '';
+  
+    localStorage.removeItem('creator_story');
+    localStorage.removeItem('creator_script');
+  
+    this.aiVideoService.story = '';
+    this.aiVideoService.script = '';
+  
+  }
+  copyScript() {
+
+    if (!this.script) {
+      return;
+    }
+  
+    navigator.clipboard.writeText(this.script);
+  
+    alert('Script copied successfully!');
+  
   }
 }

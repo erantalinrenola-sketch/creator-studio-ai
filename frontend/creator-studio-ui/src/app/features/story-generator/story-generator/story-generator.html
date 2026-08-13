@@ -22,15 +22,27 @@
     {{ isGenerating ? 'Generating Script...' : 'Generate Script' }}
 
   </button>
+  <button
+    class="blue-btn"
+    (click)="clearStory()">
+
+    Clear
+
+  </button>
+  <button
+    *ngIf="script.length > 0"
+    class="blue-btn"
+    (click)="copyScript()">
+
+    Copy Script
+
+  </button>
 
   <p *ngIf="isGenerating">
     AI is generating your script. Please wait...
   </p>
 
   <hr>
-
-  <p><b>Story Length:</b> {{ story.length }}</p>
-  <p><b>Script Length:</b> {{ script.length }}</p>
 
 </div>
 

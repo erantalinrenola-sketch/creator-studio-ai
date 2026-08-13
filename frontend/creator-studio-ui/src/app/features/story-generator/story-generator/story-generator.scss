@@ -35,7 +35,10 @@ h1 {
     margin-top: 10px;
   }
   
-  .generate-btn {
+  button{
+    margin: 10px;;
+  }
+  .generate-btn, .blue-btn {
     margin-top: 15px;
     background: #7C3AED;
     color: white;
