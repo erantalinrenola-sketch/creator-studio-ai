@@ -32,16 +32,34 @@ export class SceneGenerator implements OnInit {
     );
 
     const projectData =
-      this.aiVideoService.getProjectData(this.projectIndex);
+      this.aiVideoService.getProjectData(
+        this.projectIndex
+      );
 
     this.script =
       projectData.script ||
-      this.aiVideoService.getSavedScript();
+      this.aiVideoService.getSavedScript(
+        this.projectIndex
+      );
 
     this.scenes =
-      projectData.scenes || [];
+      projectData.scenes?.length
+        ? projectData.scenes
+        : JSON.parse(
+            localStorage.getItem(
+              `creator_scenes_${this.projectIndex}`
+            ) || '[]'
+          );
 
-    console.log('Loaded Script Length:', this.script.length);
+    console.log(
+      'Loaded Script Length:',
+      this.script.length
+    );
+
+    console.log(
+      'Loaded Scenes:',
+      this.scenes.length
+    );
   }
 
   generateScenes() {
@@ -66,19 +84,29 @@ export class SceneGenerator implements OnInit {
     sceneBlocks.forEach((block, index) => {
 
       const location =
-        block.match(/LOCATION:(.*?)(CHARACTERS:|$)/is)?.[1]?.trim() || '';
+        block.match(
+          /LOCATION:(.*?)(CHARACTERS:|$)/is
+        )?.[1]?.trim() || '';
 
       const characters =
-        block.match(/CHARACTERS:(.*?)(ACTION:|$)/is)?.[1]?.trim() || '';
+        block.match(
+          /CHARACTERS:(.*?)(ACTION:|$)/is
+        )?.[1]?.trim() || '';
 
       const action =
-        block.match(/ACTION:(.*?)(DIALOGUE:|$)/is)?.[1]?.trim() || '';
+        block.match(
+          /ACTION:(.*?)(DIALOGUE:|$)/is
+        )?.[1]?.trim() || '';
 
       const dialogue =
-        block.match(/DIALOGUE:(.*?)(EMOTION:|$)/is)?.[1]?.trim() || '';
+        block.match(
+          /DIALOGUE:(.*?)(EMOTION:|$)/is
+        )?.[1]?.trim() || '';
 
       const emotion =
-        block.match(/EMOTION:(.*)/is)?.[1]?.trim() || '';
+        block.match(
+          /EMOTION:(.*)/is
+        )?.[1]?.trim() || '';
 
       this.scenes.push({
         sceneNumber: index + 1,
@@ -92,20 +120,27 @@ export class SceneGenerator implements OnInit {
     });
 
     const projectData =
-      this.aiVideoService.getProjectData(this.projectIndex);
+      this.aiVideoService.getProjectData(
+        this.projectIndex
+      );
 
-    projectData.scenes = this.scenes;
+    projectData.scenes =
+      this.scenes;
 
     localStorage.setItem(
-      'creator_scenes',
+      `creator_scenes_${this.projectIndex}`,
       JSON.stringify(this.scenes)
     );
 
-    console.log('Saving Scenes:', this.scenes);
-    console.log('Scenes Count:', this.scenes.length);
-    console.log('Scenes Saved To LocalStorage');
+    console.log(
+      'Saving Scenes:',
+      this.scenes
+    );
 
-    console.log('Scenes Generated:', this.scenes);
+    console.log(
+      'Scenes Saved For Project:',
+      this.projectIndex
+    );
   }
 
 }

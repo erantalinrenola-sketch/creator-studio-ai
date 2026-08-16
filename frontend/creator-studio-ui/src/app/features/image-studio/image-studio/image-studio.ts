@@ -16,11 +16,9 @@ export class ImageStudio implements OnInit {
 
   projectIndex = -1;
 
-  prompt = '';
+  scenePrompts: string[] = [];
 
-  generatedImage = '';
-
-  scenes: any[] = [];
+  generatedImages: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -36,40 +34,69 @@ export class ImageStudio implements OnInit {
     const projectData =
       this.aiVideoService.getProjectData(this.projectIndex);
 
-    this.scenes = projectData.scenes;
+    this.scenePrompts =
+      projectData.scenePrompts?.length
+        ? projectData.scenePrompts
+        : JSON.parse(
+            localStorage.getItem(
+              'creator_scene_prompts'
+            ) || '[]'
+          );
 
-    if (projectData.generatedImages.length > 0) {
+    this.generatedImages =
+      projectData.generatedImages?.length
+        ? projectData.generatedImages
+        : JSON.parse(
+            localStorage.getItem(
+              'creator_generated_images'
+            ) || '[]'
+          );
 
-      const latestImage =
-        projectData.generatedImages[
-          projectData.generatedImages.length - 1
-        ];
+    console.log(
+      'Loaded Scene Prompts:',
+      this.scenePrompts.length
+    );
 
-      this.prompt = latestImage.prompt;
-      this.generatedImage = latestImage.image;
-
-    }
-
+    console.log(
+      'Loaded Images:',
+      this.generatedImages.length
+    );
   }
 
-  generateImage() {
+  generateImages() {
 
-    if (!this.prompt.trim()) {
-      alert('Please enter an image prompt.');
+    if (this.scenePrompts.length === 0) {
+      alert('Please generate prompts first.');
       return;
     }
 
-    this.generatedImage =
-      'https://via.placeholder.com/600x400?text=AI+Generated+Image';
+    this.generatedImages = [];
+
+    this.scenePrompts.forEach((prompt, index) => {
+
+      this.generatedImages.push({
+        prompt: prompt,
+        image:
+          `https://picsum.photos/600/400?random=${index + 1}`
+      });
+
+    });
 
     const projectData =
       this.aiVideoService.getProjectData(this.projectIndex);
 
-    projectData.generatedImages.push({
-      prompt: this.prompt,
-      image: this.generatedImage
-    });
+    projectData.generatedImages =
+      this.generatedImages;
 
+    localStorage.setItem(
+      'creator_generated_images',
+      JSON.stringify(this.generatedImages)
+    );
+
+    console.log(
+      'Generated Images:',
+      this.generatedImages
+    );
   }
 
 }

@@ -32,11 +32,26 @@ export class VoiceStudio implements OnInit {
     );
 
     const projectData =
-      this.aiVideoService.getProjectData(this.projectIndex);
+      this.aiVideoService.getProjectData(
+        this.projectIndex
+      );
 
-    this.script = projectData.script;
+    this.script =
+      projectData.script ||
+      this.aiVideoService.getSavedScript(
+        this.projectIndex
+      );
 
-    if (projectData.generatedAudio.length > 0) {
+    const savedAudio = JSON.parse(
+      localStorage.getItem(
+        'creator_generated_audio'
+      ) || '[]'
+    );
+
+    if (
+      projectData.generatedAudio.length > 0 ||
+      savedAudio.length > 0
+    ) {
       this.audioGenerated = true;
     }
 
@@ -45,19 +60,36 @@ export class VoiceStudio implements OnInit {
   generateVoice() {
 
     if (!this.script.trim()) {
-      alert('Please generate a script in AI Video Workspace first.');
+      alert(
+        'Please generate a script in AI Video Workspace first.'
+      );
       return;
     }
 
     this.audioGenerated = true;
 
     const projectData =
-      this.aiVideoService.getProjectData(this.projectIndex);
+      this.aiVideoService.getProjectData(
+        this.projectIndex
+      );
 
-    projectData.generatedAudio.push({
-      script: this.script,
-      audioGenerated: true
-    });
+    projectData.generatedAudio = [
+      {
+        script: this.script,
+        audioGenerated: true
+      }
+    ];
+
+    localStorage.setItem(
+      'creator_generated_audio',
+      JSON.stringify(
+        projectData.generatedAudio
+      )
+    );
+
+    console.log(
+      'Audio Generated'
+    );
 
   }
 

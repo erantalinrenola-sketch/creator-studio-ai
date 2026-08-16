@@ -15,15 +15,9 @@ export class VideoStudio implements OnInit {
 
   projectIndex = -1;
 
-  finalVideoGenerated = false;
+  generatedImages: any[] = [];
 
-  totalScenes = 0;
-
-  totalImages = 0;
-
-  totalAudio = 0;
-
-  totalVideos = 0;
+  generatedVideos: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -39,48 +33,70 @@ export class VideoStudio implements OnInit {
     const projectData =
       this.aiVideoService.getProjectData(this.projectIndex);
 
-    this.totalScenes =
-      projectData.scenes.length;
+    this.generatedImages =
+      projectData.generatedImages?.length
+        ? projectData.generatedImages
+        : JSON.parse(
+            localStorage.getItem(
+              'creator_generated_images'
+            ) || '[]'
+          );
 
-    this.totalImages =
-      projectData.generatedImages.length;
+    this.generatedVideos =
+      projectData.generatedVideos?.length
+        ? projectData.generatedVideos
+        : JSON.parse(
+            localStorage.getItem(
+              'creator_generated_videos'
+            ) || '[]'
+          );
 
-    this.totalAudio =
-      projectData.generatedAudio.length;
+    console.log(
+      'Loaded Images:',
+      this.generatedImages.length
+    );
 
-    this.totalVideos =
-      projectData.generatedVideos.length;
-
-    if (projectData.generatedVideos.length > 0) {
-      this.finalVideoGenerated = true;
-    }
-
+    console.log(
+      'Loaded Videos:',
+      this.generatedVideos.length
+    );
   }
 
-  generateFinalVideo() {
+  generateVideos() {
 
-    if (this.totalScenes === 0) {
-      alert('Please generate scenes first.');
-      return;
-    }
-
-    if (this.totalImages === 0) {
+    if (this.generatedImages.length === 0) {
       alert('Please generate images first.');
       return;
     }
 
-    if (this.totalAudio === 0) {
-      alert('Please generate voice first.');
-      return;
-    }
+    this.generatedVideos = [];
 
-    if (this.totalVideos === 0) {
-      alert('Please generate lip sync video first.');
-      return;
-    }
+    this.generatedImages.forEach((image, index) => {
 
-    this.finalVideoGenerated = true;
+      this.generatedVideos.push({
+        image: image.image,
+        prompt: image.prompt,
+        video:
+          'https://www.w3schools.com/html/mov_bbb.mp4'
+      });
 
+    });
+
+    const projectData =
+      this.aiVideoService.getProjectData(this.projectIndex);
+
+    projectData.generatedVideos =
+      this.generatedVideos;
+
+    localStorage.setItem(
+      'creator_generated_videos',
+      JSON.stringify(this.generatedVideos)
+    );
+
+    console.log(
+      'Generated Videos:',
+      this.generatedVideos
+    );
   }
 
 }

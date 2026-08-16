@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ChangeDetectorRef  } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectorRef
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 import { AiVideoService } from '../../../core/services/ai-video.service';
 
@@ -13,23 +18,43 @@ import { AiVideoService } from '../../../core/services/ai-video.service';
 })
 export class StoryGenerator implements OnInit {
 
+  projectIndex = -1;
+
   story = '';
+
   script = '';
+
   isGenerating = false;
 
   constructor(
+    private route: ActivatedRoute,
     private aiVideoService: AiVideoService,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
 
-    this.story = this.aiVideoService.getSavedStory();
-    this.script = this.aiVideoService.getSavedScript();
+    this.projectIndex = Number(
+      this.route.snapshot.paramMap.get('index')
+    );
+
+    this.story =
+      this.aiVideoService.getSavedStory(
+        this.projectIndex
+      );
+
+    this.script =
+      this.aiVideoService.getSavedScript(
+        this.projectIndex
+      );
 
     console.log('Loaded Story:', this.story);
-    console.log('Loaded Script Length:', this.script.length);
+    console.log(
+      'Loaded Script Length:',
+      this.script.length
+    );
   }
+
   generateScript() {
 
     if (!this.story.trim()) {
@@ -40,68 +65,79 @@ export class StoryGenerator implements OnInit {
     this.isGenerating = true;
     this.script = '';
 
-    this.aiVideoService.generateScript(this.story).subscribe({
+    this.aiVideoService
+      .generateScript(this.story)
+      .subscribe({
 
-      next: (response: string) => {
+        next: (response: string) => {
 
-        console.log('SCRIPT RECEIVED');
-        console.log('Response Length:', response?.length);
-        console.log('Response Data:', response);
+          this.script = String(response);
 
-        this.script = String(response);
+          this.aiVideoService.story =
+            this.story;
 
-        console.log('SCRIPT VALUE:');
-        console.log(this.script);
+          this.aiVideoService.script =
+            this.script;
 
-        this.aiVideoService.story = this.story;
-        this.aiVideoService.script = this.script;
+          this.aiVideoService.saveStoryAndScript(
+            this.projectIndex,
+            this.story,
+            this.script
+          );
 
-        this.aiVideoService.saveStoryAndScript(
-          this.story,
-          this.script
-        );
+          this.isGenerating = false;
 
-        this.isGenerating = false;
-        
-        this.cdr.detectChanges();
+          this.cdr.detectChanges();
 
-        console.log('isGenerating =', this.isGenerating);
-        console.log('script length =', this.script.length);
+        },
 
-        console.log('LOADING FALSE');
-      },
+        error: (error) => {
 
-      error: (error) => {
+          console.error(
+            'Script generation failed:',
+            error
+          );
 
-        console.error('Script generation failed:', error);
+          this.isGenerating = false;
 
-        this.isGenerating = false;
+        }
 
-        console.log('ERROR BLOCK EXECUTED');
-      }
-    });
+      });
+
   }
+
   clearStory() {
 
     this.story = '';
     this.script = '';
-  
-    localStorage.removeItem('creator_story');
-    localStorage.removeItem('creator_script');
-  
+
+    localStorage.removeItem(
+      `creator_story_${this.projectIndex}`
+    );
+
+    localStorage.removeItem(
+      `creator_script_${this.projectIndex}`
+    );
+
     this.aiVideoService.story = '';
     this.aiVideoService.script = '';
-  
+
   }
+
   copyScript() {
 
     if (!this.script) {
       return;
     }
-  
-    navigator.clipboard.writeText(this.script);
-  
-    alert('Script copied successfully!');
-  
+
+    navigator.clipboard.writeText(
+      this.script
+    );
+
+    alert(
+      'Script copied successfully!'
+    );
+
   }
+
 }

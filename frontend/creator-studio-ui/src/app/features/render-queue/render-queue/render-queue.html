@@ -1,1 +1,45 @@
-<p>render-queue works!</p>
+<h1>Render Queue</h1>
+
+<p class="subtitle">
+  Render your final AI video.
+</p>
+
+<div class="stats-section">
+
+  <h3>Total Images: {{ totalImages }}</h3>
+
+  <h3>Total Audio: {{ totalAudio }}</h3>
+
+  <h3>Total Lip Sync Videos: {{ totalVideos }}</h3>
+
+</div>
+
+<button
+  class="generate-btn"
+  (click)="renderFinalVideo()">
+
+  Render Final Video
+
+</button>
+
+<div
+  class="video-section"
+  *ngIf="finalVideoGenerated">
+
+  <h2>Final Video Preview</h2>
+
+  <video
+    controls
+    width="100%">
+
+    <source
+      src="https://www.w3schools.com/html/mov_bbb.mp4"
+      type="video/mp4">
+
+  </video>
+
+  <p>
+    Final video rendered successfully.
+  </p>
+
+</div>

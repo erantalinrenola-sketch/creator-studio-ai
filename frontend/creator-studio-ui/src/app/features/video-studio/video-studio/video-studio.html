@@ -1,60 +1,49 @@
 <h1>Video Studio</h1>
 
 <p class="subtitle">
-  Create the final video from your generated scenes, images, voice, and lip-sync.
+  Generate videos from your images.
 </p>
 
-<div class="video-stats">
+<button
+  class="generate-btn"
+  (click)="generateVideos()">
 
-  <div class="stat-card">
-    <h3>Scenes</h3>
-    <p>{{ totalScenes }}</p>
-  </div>
+  Generate Videos
 
-  <div class="stat-card">
-    <h3>Images</h3>
-    <p>{{ totalImages }}</p>
-  </div>
+</button>
 
-  <div class="stat-card">
-    <h3>Audio</h3>
-    <p>{{ totalAudio }}</p>
-  </div>
+<hr>
 
-  <div class="stat-card">
-    <h3>Lip Sync Videos</h3>
-    <p>{{ totalVideos }}</p>
-  </div>
-
-</div>
-
-<div class="video-section">
-
-  <button
-    class="generate-btn"
-    (click)="generateFinalVideo()">
-    Generate Final Video
-  </button>
-
-</div>
-
-
-<div
-  class="success-message"
-  *ngIf="finalVideoGenerated">
-
-  <h2>Final Video Generated Successfully!</h2>
+<div *ngIf="generatedImages.length === 0">
 
   <p>
-    Your final video is ready.
+    No images found.
   </p>
+
+  <p>
+    Please generate images first.
+  </p>
+
+</div>
+
+<div
+  *ngFor="let video of generatedVideos; let i = index"
+  class="video-card">
+
+  <h2>Scene {{ i + 1 }}</h2>
+
+  <h3>Prompt</h3>
+
+  <pre>
+{{ video.prompt }}
+  </pre>
 
   <video
     controls
     width="600">
 
     <source
-      src="https://www.w3schools.com/html/mov_bbb.mp4"
+      [src]="video.video"
       type="video/mp4">
 
     Your browser does not support the video tag.

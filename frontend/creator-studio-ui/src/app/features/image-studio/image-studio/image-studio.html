@@ -1,83 +1,39 @@
 <h1>Image Studio</h1>
 
 <p class="subtitle">
-  Generate images from your scenes and prompts.
+  Generate images from scene prompts.
 </p>
 
+<button
+  class="generate-btn"
+  (click)="generateImages()">
 
-<!-- AVAILABLE SCENES -->
+  Generate Images
 
-<div
-  class="scenes-section"
-  *ngIf="scenes.length > 0">
+</button>
 
-  <h2>Available Scenes</h2>
+<hr>
 
-  <div
-    class="scene-card"
-    *ngFor="let scene of scenes">
+<div *ngIf="scenePrompts.length === 0">
 
-    <h3>{{ scene }}</h3>
+  <p>No scene prompts found.</p>
 
-    <button
-      class="generate-btn"
-      (click)="prompt = scene">
-      Use This Scene
-    </button>
-
-  </div>
+  <p>Please generate prompts first.</p>
 
 </div>
 
-
-<!-- NO SCENES -->
-
 <div
-  class="empty-state"
-  *ngIf="scenes.length === 0">
+  *ngFor="let image of generatedImages; let i = index"
+  class="image-card">
 
-  <p>
-    No scenes available yet.
-  </p>
+  <h2>Scene {{ i + 1 }}</h2>
 
-  <p>
-    Please generate scenes first.
-  </p>
+  <h3>Prompt</h3>
 
-</div>
-
-
-<!-- IMAGE PROMPT -->
-
-<div class="prompt-section">
-
-  <h2>Image Prompt</h2>
-
-  <textarea
-    [(ngModel)]="prompt"
-    rows="6"
-    placeholder="Enter an image prompt...">
-  </textarea>
-
-  <button
-    class="generate-btn"
-    (click)="generateImage()">
-    Generate Image
-  </button>
-
-</div>
-
-
-<!-- GENERATED IMAGE -->
-
-<div
-  class="image-section"
-  *ngIf="generatedImage">
-
-  <h2>Generated Image</h2>
+  <pre>{{ image.prompt }}</pre>
 
   <img
-    [src]="generatedImage"
+    [src]="image.image"
     alt="Generated Image"
     class="generated-image">
 

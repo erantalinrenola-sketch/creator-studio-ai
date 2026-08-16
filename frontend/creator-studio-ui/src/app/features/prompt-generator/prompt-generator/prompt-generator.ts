@@ -34,13 +34,17 @@ export class PromptGenerator implements OnInit {
     );
 
     const projectData =
-      this.aiVideoService.getProjectData(this.projectIndex);
+      this.aiVideoService.getProjectData(
+        this.projectIndex
+      );
 
     this.scenes =
       projectData.scenes?.length
         ? projectData.scenes
         : JSON.parse(
-            localStorage.getItem('creator_scenes') || '[]'
+            localStorage.getItem(
+              `creator_scenes_${this.projectIndex}`
+            ) || '[]'
           );
 
     this.characterPrompts =
@@ -48,7 +52,7 @@ export class PromptGenerator implements OnInit {
         ? projectData.characterPrompts
         : JSON.parse(
             localStorage.getItem(
-              'creator_character_prompts'
+              `creator_character_prompts_${this.projectIndex}`
             ) || '[]'
           );
 
@@ -57,13 +61,25 @@ export class PromptGenerator implements OnInit {
         ? projectData.scenePrompts
         : JSON.parse(
             localStorage.getItem(
-              'creator_scene_prompts'
+              `creator_scene_prompts_${this.projectIndex}`
             ) || '[]'
           );
 
-    console.log('Scenes Loaded:', this.scenes.length);
-    console.log('Character Prompts:', this.characterPrompts.length);
-    console.log('Scene Prompts:', this.scenePrompts.length);
+    console.log(
+      'Scenes Loaded:',
+      this.scenes.length
+    );
+
+    console.log(
+      'Character Prompts:',
+      this.characterPrompts.length
+    );
+
+    console.log(
+      'Scene Prompts:',
+      this.scenePrompts.length
+    );
+
   }
 
   generatePrompts() {
@@ -107,7 +123,9 @@ movie scene,
     });
 
     const projectData =
-      this.aiVideoService.getProjectData(this.projectIndex);
+      this.aiVideoService.getProjectData(
+        this.projectIndex
+      );
 
     projectData.characterPrompts =
       this.characterPrompts;
@@ -116,17 +134,23 @@ movie scene,
       this.scenePrompts;
 
     localStorage.setItem(
-      'creator_character_prompts',
+      `creator_character_prompts_${this.projectIndex}`,
       JSON.stringify(this.characterPrompts)
     );
 
     localStorage.setItem(
-      'creator_scene_prompts',
+      `creator_scene_prompts_${this.projectIndex}`,
       JSON.stringify(this.scenePrompts)
     );
 
-    console.log('Character Prompts Generated');
-    console.log('Scene Prompts Generated');
+    console.log(
+      'Character Prompts Generated'
+    );
+
+    console.log(
+      'Scene Prompts Generated'
+    );
+
   }
 
 }

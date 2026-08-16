@@ -36,9 +36,23 @@ export class LipSync implements OnInit {
     const projectData =
       this.aiVideoService.getProjectData(this.projectIndex);
 
-    const images = projectData.generatedImages;
+    const images =
+      projectData.generatedImages?.length
+        ? projectData.generatedImages
+        : JSON.parse(
+            localStorage.getItem(
+              'creator_generated_images'
+            ) || '[]'
+          );
 
-    const audio = projectData.generatedAudio;
+    const audio =
+      projectData.generatedAudio?.length
+        ? projectData.generatedAudio
+        : JSON.parse(
+            localStorage.getItem(
+              'creator_generated_audio'
+            ) || '[]'
+          );
 
     if (images.length > 0) {
 
@@ -49,11 +63,22 @@ export class LipSync implements OnInit {
 
     if (audio.length > 0) {
 
-      this.audioFile = 'Generated Audio';
+      this.audioFile =
+        'Generated Audio';
 
     }
 
-    if (projectData.generatedVideos.length > 0) {
+    const savedLipSync =
+      JSON.parse(
+        localStorage.getItem(
+          'creator_lipsync_video'
+        ) || '[]'
+      );
+
+    if (
+      projectData.generatedVideos.length > 0 ||
+      savedLipSync.length > 0
+    ) {
 
       this.videoGenerated = true;
 
@@ -64,25 +89,41 @@ export class LipSync implements OnInit {
   generateLipSync() {
 
     if (!this.characterImage.trim()) {
-      alert('Please generate an image in Image Studio first.');
+      alert('Please generate an image first.');
       return;
     }
 
     if (!this.audioFile.trim()) {
-      alert('Please generate voice in Voice Studio first.');
+      alert('Please generate voice first.');
       return;
     }
 
     this.videoGenerated = true;
 
     const projectData =
-      this.aiVideoService.getProjectData(this.projectIndex);
+      this.aiVideoService.getProjectData(
+        this.projectIndex
+      );
 
-    projectData.generatedVideos.push({
-      image: this.characterImage,
-      audio: this.audioFile,
-      videoGenerated: true
-    });
+    projectData.generatedVideos = [
+      {
+        image: this.characterImage,
+        audio: this.audioFile,
+        video:
+          'https://www.w3schools.com/html/mov_bbb.mp4'
+      }
+    ];
+
+    localStorage.setItem(
+      'creator_lipsync_video',
+      JSON.stringify(
+        projectData.generatedVideos
+      )
+    );
+
+    console.log(
+      'Lip Sync Generated'
+    );
 
   }
 

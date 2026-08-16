@@ -70,23 +70,46 @@ export class AiVideoService {
     );
   }
 
-  saveStoryAndScript(story: string, script: string): void {
-
-    localStorage.setItem('creator_story', story);
-    localStorage.setItem('creator_script', script);
-
+  saveStoryAndScript(
+    projectIndex: number,
+    story: string,
+    script: string
+  ): void {
+  
+    localStorage.setItem(
+      `creator_story_${projectIndex}`,
+      story
+    );
+  
+    localStorage.setItem(
+      `creator_script_${projectIndex}`,
+      script
+    );
+  
   }
 
-  getSavedStory(): string {
-
-    return localStorage.getItem('creator_story') || '';
-
+  getSavedStory(
+    projectIndex: number
+  ): string {
+  
+    return (
+      localStorage.getItem(
+        `creator_story_${projectIndex}`
+      ) || ''
+    );
+  
   }
 
-  getSavedScript(): string {
-
-    return localStorage.getItem('creator_script') || '';
-
+  getSavedScript(
+    projectIndex: number
+  ): string {
+  
+    return (
+      localStorage.getItem(
+        `creator_script_${projectIndex}`
+      ) || ''
+    );
+  
   }
 
 }

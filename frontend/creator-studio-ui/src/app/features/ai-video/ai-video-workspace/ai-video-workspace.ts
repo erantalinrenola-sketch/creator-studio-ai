@@ -39,18 +39,39 @@ export class AiVideoWorkspace implements OnInit {
       this.route.snapshot.paramMap.get('index')
     );
 
-    const projects = this.projectService.getProjects();
+    const projects =
+      this.projectService.getProjects();
 
     if (projects[this.projectIndex]) {
 
-      this.project = projects[this.projectIndex];
+      this.project =
+        projects[this.projectIndex];
 
       const projectData =
-        this.aiVideoService.getProjectData(this.projectIndex);
+        this.aiVideoService.getProjectData(
+          this.projectIndex
+        );
 
-      this.story = projectData.story;
+      this.story =
+        projectData.story ||
+        this.aiVideoService.getSavedStory(
+          this.projectIndex
+        );
 
-      this.script = projectData.script;
+      this.script =
+        projectData.script ||
+        this.aiVideoService.getSavedScript(
+          this.projectIndex
+        );
+
+      this.characterPrompts =
+        projectData.characterPrompts?.length
+          ? projectData.characterPrompts
+          : JSON.parse(
+              localStorage.getItem(
+                'creator_character_prompts'
+              ) || '[]'
+            );
 
     }
 
@@ -86,11 +107,21 @@ The story ends with the character returning home with a new understanding.
 `;
 
     const projectData =
-      this.aiVideoService.getProjectData(this.projectIndex);
+      this.aiVideoService.getProjectData(
+        this.projectIndex
+      );
 
-    projectData.story = this.story;
+    projectData.story =
+      this.story;
 
-    projectData.script = this.script;
+    projectData.script =
+      this.script;
+
+    this.aiVideoService.saveStoryAndScript(
+      this.projectIndex,
+      this.story,
+      this.script
+    );
 
   }
 
@@ -135,9 +166,19 @@ The story ends with the character returning home with a new understanding.
     ];
 
     const projectData =
-      this.aiVideoService.getProjectData(this.projectIndex);
+      this.aiVideoService.getProjectData(
+        this.projectIndex
+      );
 
-    projectData.characterPrompts = this.characterPrompts;
+    projectData.characterPrompts =
+      this.characterPrompts;
+
+    localStorage.setItem(
+      'creator_character_prompts',
+      JSON.stringify(
+        this.characterPrompts
+      )
+    );
 
   }
 
