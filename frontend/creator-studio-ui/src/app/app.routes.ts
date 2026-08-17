@@ -38,7 +38,7 @@ export const routes: Routes = [
       { path: 'video-studio/:index', component: VideoStudio },
       { path: 'voice-studio/:index', component: VoiceStudio },
       { path: 'lip-sync/:index', component: LipSync },
-      { path: 'render-queue', component: RenderQueue },
+      { path: 'render-queue/:index', component: RenderQueue },
       { path: 'settings', component: Settings }
     ]
   }

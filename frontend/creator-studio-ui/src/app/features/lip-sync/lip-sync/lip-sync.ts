@@ -34,14 +34,16 @@ export class LipSync implements OnInit {
     );
 
     const projectData =
-      this.aiVideoService.getProjectData(this.projectIndex);
+      this.aiVideoService.getProjectData(
+        this.projectIndex
+      );
 
     const images =
       projectData.generatedImages?.length
         ? projectData.generatedImages
         : JSON.parse(
             localStorage.getItem(
-              'creator_generated_images'
+              `creator_generated_images_${this.projectIndex}`
             ) || '[]'
           );
 
@@ -50,7 +52,7 @@ export class LipSync implements OnInit {
         ? projectData.generatedAudio
         : JSON.parse(
             localStorage.getItem(
-              'creator_generated_audio'
+              `creator_generated_audio_${this.projectIndex}`
             ) || '[]'
           );
 
@@ -71,7 +73,7 @@ export class LipSync implements OnInit {
     const savedLipSync =
       JSON.parse(
         localStorage.getItem(
-          'creator_lipsync_video'
+          `creator_lipsync_video_${this.projectIndex}`
         ) || '[]'
       );
 
@@ -115,7 +117,7 @@ export class LipSync implements OnInit {
     ];
 
     localStorage.setItem(
-      'creator_lipsync_video',
+      `creator_lipsync_video_${this.projectIndex}`,
       JSON.stringify(
         projectData.generatedVideos
       )

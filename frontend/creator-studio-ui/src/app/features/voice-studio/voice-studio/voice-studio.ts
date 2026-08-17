@@ -44,7 +44,7 @@ export class VoiceStudio implements OnInit {
 
     const savedAudio = JSON.parse(
       localStorage.getItem(
-        'creator_generated_audio'
+        `creator_generated_audio_${this.projectIndex}`
       ) || '[]'
     );
 
@@ -81,7 +81,7 @@ export class VoiceStudio implements OnInit {
     ];
 
     localStorage.setItem(
-      'creator_generated_audio',
+      `creator_generated_audio_${this.projectIndex}`,
       JSON.stringify(
         projectData.generatedAudio
       )

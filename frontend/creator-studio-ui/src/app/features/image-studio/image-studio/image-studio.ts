@@ -32,14 +32,16 @@ export class ImageStudio implements OnInit {
     );
 
     const projectData =
-      this.aiVideoService.getProjectData(this.projectIndex);
+      this.aiVideoService.getProjectData(
+        this.projectIndex
+      );
 
     this.scenePrompts =
       projectData.scenePrompts?.length
         ? projectData.scenePrompts
         : JSON.parse(
             localStorage.getItem(
-              'creator_scene_prompts'
+              `creator_scene_prompts_${this.projectIndex}`
             ) || '[]'
           );
 
@@ -48,7 +50,7 @@ export class ImageStudio implements OnInit {
         ? projectData.generatedImages
         : JSON.parse(
             localStorage.getItem(
-              'creator_generated_images'
+              `creator_generated_images_${this.projectIndex}`
             ) || '[]'
           );
 
@@ -61,6 +63,7 @@ export class ImageStudio implements OnInit {
       'Loaded Images:',
       this.generatedImages.length
     );
+
   }
 
   generateImages() {
@@ -83,13 +86,15 @@ export class ImageStudio implements OnInit {
     });
 
     const projectData =
-      this.aiVideoService.getProjectData(this.projectIndex);
+      this.aiVideoService.getProjectData(
+        this.projectIndex
+      );
 
     projectData.generatedImages =
       this.generatedImages;
 
     localStorage.setItem(
-      'creator_generated_images',
+      `creator_generated_images_${this.projectIndex}`,
       JSON.stringify(this.generatedImages)
     );
 
@@ -97,6 +102,7 @@ export class ImageStudio implements OnInit {
       'Generated Images:',
       this.generatedImages
     );
+
   }
 
 }

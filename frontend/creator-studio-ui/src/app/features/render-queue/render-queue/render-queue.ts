@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ProjectService } from '../../../core/services/project.service';
 
 @Component({
   selector: 'app-render-queue',
@@ -9,6 +11,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrl: './render-queue.scss',
 })
 export class RenderQueue implements OnInit {
+
+  project: any = null;
+  
+  projectIndex = -1;
 
   totalImages = 0;
 
@@ -20,24 +26,34 @@ export class RenderQueue implements OnInit {
 
   ngOnInit() {
 
+    this.projectIndex = Number(
+      this.route.snapshot.paramMap.get('index')
+    );
+
+    const projects =
+      this.projectService.getProjects();
+
+    this.project =
+      projects[this.projectIndex];
+
     const images =
       JSON.parse(
         localStorage.getItem(
-          'creator_generated_images'
+          `creator_generated_images_${this.projectIndex}`
         ) || '[]'
       );
 
     const audio =
       JSON.parse(
         localStorage.getItem(
-          'creator_generated_audio'
+          `creator_generated_audio_${this.projectIndex}`
         ) || '[]'
       );
 
     const videos =
       JSON.parse(
         localStorage.getItem(
-          'creator_lipsync_video'
+          `creator_lipsync_video_${this.projectIndex}`
         ) || '[]'
       );
 
@@ -47,7 +63,7 @@ export class RenderQueue implements OnInit {
 
     const finalVideo =
       localStorage.getItem(
-        'creator_final_video'
+        `creator_final_video_${this.projectIndex}`
       );
 
     if (finalVideo) {
@@ -55,6 +71,11 @@ export class RenderQueue implements OnInit {
     }
 
   }
+
+  constructor(
+    private route: ActivatedRoute,
+    private projectService: ProjectService
+  ) {}
 
   renderFinalVideo() {
 
@@ -76,7 +97,7 @@ export class RenderQueue implements OnInit {
     this.finalVideoGenerated = true;
 
     localStorage.setItem(
-      'creator_final_video',
+      `creator_final_video_${this.projectIndex}`,
       'generated'
     );
 

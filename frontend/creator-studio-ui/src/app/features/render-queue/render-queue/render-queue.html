@@ -4,13 +4,31 @@
   Render your final AI video.
 </p>
 
+<div
+  class="project-info"
+  *ngIf="project">
+
+  <strong>Project:</strong>
+  {{ project.name }}
+
+</div>
+
 <div class="stats-section">
 
-  <h3>Total Images: {{ totalImages }}</h3>
+  <h3>
+    Total Images:
+    {{ totalImages }}
+  </h3>
 
-  <h3>Total Audio: {{ totalAudio }}</h3>
+  <h3>
+    Total Audio:
+    {{ totalAudio }}
+  </h3>
 
-  <h3>Total Lip Sync Videos: {{ totalVideos }}</h3>
+  <h3>
+    Total Lip Sync Videos:
+    {{ totalVideos }}
+  </h3>
 
 </div>
 

@@ -141,6 +141,15 @@ export class ProjectDetails implements OnInit {
     ]);
 
   }
+  
+  openRenderQueue() {
+
+    this.router.navigate([
+      '/render-queue',
+      this.projectIndex
+    ]);
+  
+  }
 
   goBack() {
 
