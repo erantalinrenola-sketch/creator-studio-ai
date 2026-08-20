@@ -157,4 +157,13 @@ export class ProjectDetails implements OnInit {
 
   }
 
+  openYouTubeOptimizer() {
+
+    this.router.navigate([
+      '/youtube-optimizer',
+      this.projectIndex
+    ]);
+  
+  }
+
 }

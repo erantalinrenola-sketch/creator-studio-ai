@@ -7,6 +7,7 @@ import { Projects } from './features/projects/projects/projects';
 import { ProjectTasks } from './features/projects/project-tasks/project-tasks';
 import { ProjectDetails } from './features/projects/project-details/project-details';
 import { AiVideoWorkspace } from './features/ai-video/ai-video-workspace/ai-video-workspace';
+import { YouTubeOptimizer } from './features/youtube-optimizer/youtube-optimizer/youtube-optimizer';
 import { StoryGenerator } from './features/story-generator/story-generator/story-generator';
 import { SceneGenerator } from './features/scene-generator/scene-generator/scene-generator';
 import { PromptGenerator } from './features/prompt-generator/prompt-generator/prompt-generator';
@@ -29,6 +30,7 @@ export const routes: Routes = [
       { path: 'projects', component: Projects },
       { path: 'users', component: Users },
       { path: 'ai-video/:index', component: AiVideoWorkspace },
+      { path: 'youtube-optimizer/:index', component: YouTubeOptimizer },
       { path: 'project-tasks', component: ProjectTasks },
       { path: 'project-details/:index', component: ProjectDetails },
       { path: 'story-generator/:index', component: StoryGenerator },

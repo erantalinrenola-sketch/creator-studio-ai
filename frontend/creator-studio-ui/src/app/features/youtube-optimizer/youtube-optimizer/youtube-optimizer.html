@@ -1,0 +1,162 @@
+<h1>YouTube Optimizer</h1>
+
+<p class="subtitle">
+  Upload your finished video and optimize it for YouTube.
+</p>
+
+
+<!-- CURRENT PROJECT -->
+
+<div
+  class="project-info"
+  *ngIf="project">
+
+  <strong>Project:</strong>
+  {{ project.name }}
+
+</div>
+
+
+<!-- STEP 1: UPLOAD VIDEO -->
+
+<div class="optimizer-section">
+
+  <h2>1. Upload Finished Video</h2>
+
+  <p>
+    Upload the final video you want to analyze and optimize
+    for YouTube.
+  </p>
+
+  <input
+    #videoInput
+    type="file"
+    accept="video/*"
+    hidden
+    (change)="selectVideo($event)">
+
+  <button
+    class="generate-btn"
+    type="button"
+    (click)="videoInput.click()">
+
+    📤 Choose Video
+
+  </button>
+
+</div>
+
+
+<!-- STEP 2: SELECTED VIDEO -->
+
+<div
+  class="result-section"
+  *ngIf="selectedVideo">
+
+  <h2>2. Selected Video</h2>
+
+  <p>
+    <strong>File:</strong>
+    {{ videoName }}
+  </p>
+
+  <p>
+    <strong>Size:</strong>
+    {{ videoSize }}
+  </p>
+
+
+  <!-- VIDEO PREVIEW -->
+
+  <div
+    class="video-preview"
+    *ngIf="videoPreviewUrl">
+
+    <video
+      controls
+      width="100%"
+      [src]="videoPreviewUrl">
+    </video>
+
+  </div>
+
+
+  <!-- ACTIONS -->
+
+  <div class="video-actions">
+
+    <button
+      class="generate-btn"
+      type="button"
+      [disabled]="isUploading"
+      (click)="analyzeVideo()">
+
+      {{ isUploading
+        ? '🤖 Analyzing Video...'
+        : '🔍 Analyze Video' }}
+
+    </button>
+
+    <button
+      class="delete-btn"
+      type="button"
+      [disabled]="isUploading"
+      (click)="removeVideo()">
+
+      Remove Video
+
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- ANALYSIS STATUS -->
+
+<div
+  class="loading-section"
+  *ngIf="isUploading">
+
+  <h2>🤖 AI Video Analysis</h2>
+
+  <p>
+    Gemini is analyzing your video...
+  </p>
+
+  <p>
+    Please wait while we analyze the story, visuals,
+    language, emotion and YouTube potential.
+  </p>
+
+</div>
+
+
+<!-- ANALYSIS MESSAGE -->
+
+<div
+  class="upload-message"
+  *ngIf="uploadMessage && !isUploading">
+
+  <p>
+    {{ uploadMessage }}
+  </p>
+
+</div>
+
+
+<!-- STEP 3: GEMINI VIDEO ANALYSIS -->
+
+<div
+  class="analysis-section"
+  *ngIf="analysisAvailable">
+
+  <h2>3. 🎯 AI YouTube Analysis</h2>
+
+  <div class="analysis-box">
+
+    <pre>{{ analysis }}</pre>
+
+  </div>
+
+</div>
