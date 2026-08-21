@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 import { AiVideoService } from '../../../core/services/ai-video.service';
 
@@ -20,9 +21,12 @@ export class ImageStudio implements OnInit {
 
   generatedImages: any[] = [];
 
+  isGenerating = false;
+
   constructor(
     private route: ActivatedRoute,
-    private aiVideoService: AiVideoService
+    private aiVideoService: AiVideoService,
+    private http: HttpClient
   ) {}
 
   ngOnInit() {
@@ -56,52 +60,99 @@ export class ImageStudio implements OnInit {
 
     console.log(
       'Loaded Scene Prompts:',
-      this.scenePrompts.length
+      this.scenePrompts
     );
 
     console.log(
       'Loaded Images:',
-      this.generatedImages.length
+      this.generatedImages
     );
-
   }
 
   generateImages() {
 
+    console.log('Generate Images Clicked');
+
     if (this.scenePrompts.length === 0) {
-      alert('Please generate prompts first.');
+
+      alert('No scene prompts found.');
+
       return;
     }
 
     this.generatedImages = [];
 
+    this.isGenerating = true;
+
     this.scenePrompts.forEach((prompt, index) => {
 
-      this.generatedImages.push({
-        prompt: prompt,
-        image:
-          `https://picsum.photos/600/400?random=${index + 1}`
+      console.log(
+        'Sending Prompt:',
+        prompt
+      );
+
+      this.http.post(
+        'http://localhost:8080/api/image-studio/generate',
+        prompt,
+        {
+          responseType: 'text'
+        }
+      ).subscribe({
+
+        next: (response) => {
+
+          console.log(
+            'Backend Response:',
+            response
+          );
+
+          this.generatedImages.push({
+
+            prompt: prompt,
+
+            image:
+              `https://picsum.photos/600/400?random=${index + 1}`
+
+          });
+
+          console.log(
+            'Generated Images:',
+            this.generatedImages
+          );
+          
+          const projectData =
+            this.aiVideoService.getProjectData(
+              this.projectIndex
+            );
+
+          projectData.generatedImages =
+            this.generatedImages;
+
+          localStorage.setItem(
+            `creator_generated_images_${this.projectIndex}`,
+            JSON.stringify(this.generatedImages)
+          );
+
+        },
+
+        error: (error) => {
+
+          console.error(
+            'Image Generation Failed',
+            error
+          );
+
+        },
+
+        complete: () => {
+
+          this.isGenerating = false;
+
+        }
+
       });
 
     });
-
-    const projectData =
-      this.aiVideoService.getProjectData(
-        this.projectIndex
-      );
-
-    projectData.generatedImages =
-      this.generatedImages;
-
-    localStorage.setItem(
-      `creator_generated_images_${this.projectIndex}`,
-      JSON.stringify(this.generatedImages)
-    );
-
-    console.log(
-      'Generated Images:',
-      this.generatedImages
-    );
 
   }
 

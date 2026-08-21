@@ -385,6 +385,66 @@ public class GeminiService {
             "Gemini video analysis failed after retries."
     );
 }
+    
+    public String generateImage(
+        String prompt) {
+
+    try {
+
+        String url =
+                "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite-image:generateContent?key="
+                + apiKey;
+
+        Map<String, Object> requestBody =
+                Map.of(
+                        "contents",
+                        new Object[]{
+                                Map.of(
+                                        "parts",
+                                        new Object[]{
+                                                Map.of(
+                                                        "text",
+                                                        prompt
+                                                )
+                                        }
+                                )
+                        }
+                );
+
+        System.out.println(
+                "Generating Image..."
+        );
+
+        String response =
+                restClient
+                        .post()
+                        .uri(url)
+                        .body(requestBody)
+                        .retrieve()
+                        .body(String.class);
+
+        System.out.println(
+                "IMAGE RESPONSE:"
+        );
+
+        System.out.println(
+                response
+        );
+
+        return response;
+
+    } catch (Exception e) {
+
+        e.printStackTrace();
+
+        throw new RuntimeException(
+                "Image generation failed: "
+                        + e.getMessage(),
+                e
+        );
+    }
+}
+
 
     private String extractFileName(
             String response) {
